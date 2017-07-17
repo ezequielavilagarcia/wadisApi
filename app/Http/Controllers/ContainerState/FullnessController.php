@@ -36,7 +36,7 @@ class FullnessController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

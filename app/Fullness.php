@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Fullness extends Model
 {
-    //
+    protected $fillable = [
+    	'value',
+    ];
 }

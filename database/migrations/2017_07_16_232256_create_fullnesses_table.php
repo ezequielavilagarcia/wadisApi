@@ -14,8 +14,10 @@ class CreateFullnessesTable extends Migration
     public function up()
     {
         Schema::create('fullnesses', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+            $table->integer('id')->unsigned();
+            $table->integer('value');
+            
+            $table->foreign('id')->references('id')->on('container_states');
         });
     }
 

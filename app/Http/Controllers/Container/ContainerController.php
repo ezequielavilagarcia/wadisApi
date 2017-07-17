@@ -36,7 +36,7 @@ class ContainerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

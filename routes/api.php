@@ -17,5 +17,5 @@ use Illuminate\Http\Request;
     return $request->user();
 });*/
 Route::resource('containers','Container\ContainerController');
-Route::resource('fullness','ContainerState\FullnessController');
+Route::resource('fullness','ContainerState\FullnessController',['only' => ['store']]);
 
