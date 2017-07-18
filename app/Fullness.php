@@ -8,19 +8,30 @@ use Illuminate\Database\Eloquent\Model;
 class Fullness extends Model
 {
 	public $timestamps = false;
-	public $id = false;
+	public $primaryKey  = "container_state_id";
 
     protected $fillable = [
     	'value',
+    ];
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
     	'container_state_id',
     ];
-    protected $hidden = [
-    	'id',
+    /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = [
+        'containerState',
     ];
-
 
     public function ContainerState()
     {
-        return $this->hasOne(ContainerState::class);
+        return $this->belongsTo(ContainerState::class);
     }
 }

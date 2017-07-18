@@ -14,9 +14,8 @@ class CreateFullnessesTable extends Migration
     public function up()
     {
         Schema::create('fullnesses', function (Blueprint $table) {
-            $table->integer('container_state_id')->unsigned();
+            $table->integer('container_state_id')->unsigned()->unique()->primary();
             $table->integer('value');
-            
             $table->foreign('container_state_id')->references('id')->on('container_states');
         });
     }
