@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Container extends Model
 {
-	const CONTENEDOR_RECICLABE = "1";
-	const CONTENEDOR_NO_RECICLABE = "0";	
+	const CONTENEDOR_RECICLABLE = "1";
+	const CONTENEDOR_NO_RECICLABLE = "0";	
 
 	const CONTENEDOR_DISPONIBLE = "1";
 	const CONTENEDOR_NO_DISPONIBLE = "0";

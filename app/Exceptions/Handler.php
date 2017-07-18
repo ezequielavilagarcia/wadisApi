@@ -1,13 +1,18 @@
 <?php
-
 namespace App\Exceptions;
-
 use Exception;
+use App\Traits\ApiResponser;
+use Illuminate\Database\QueryException;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 class Handler extends ExceptionHandler
 {
+    use ApiResponser;
     /**
      * A list of the exception types that should not be reported.
      *
@@ -21,7 +26,6 @@ class Handler extends ExceptionHandler
         \Illuminate\Session\TokenMismatchException::class,
         \Illuminate\Validation\ValidationException::class,
     ];
-
     /**
      * Report or log an exception.
      *
@@ -34,7 +38,6 @@ class Handler extends ExceptionHandler
     {
         parent::report($exception);
     }
-
     /**
      * Render an exception into an HTTP response.
      *
@@ -44,9 +47,48 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+        // Manejo de excepciones del tipo de validación de campos
+        if($exception instanceof ValidationException)
+        {
+            return $this->convertValidationExceptionToResponse($exception,$request);
+        }
+        // Manejo de excepciones del tipo Model, se busca una instancia que no existe en la DB
+        if($exception instanceof ModelNotFoundException)
+        {
+            $modelo = strtolower(class_basename($exception->getModel()));
+            return $this->errorResponse("No existe ninguna instancia de {$modelo} con el id especificado",404);
+        }
+        // Manejo de excepciones del tipo AUTENTICACION
+        if($exception instanceof AuthenticationException) {
+            return $this->unauthenticated($request, $exception);
+        }
+        // Manejo de excepciones del tipo AUTORIZACION
+        if($exception instanceof AuthorizationException) {
+            return $this->errorResponse("No posee permisos para ejecutar esta acción",403);
+        }
+        if($exception instanceof NotFoundHttpException) {
+            return $this->errorResponse("No se encontró la URL especificada",404);
+        }
+        if($exception instanceof MethodNotAllowedHttpException) {
+            return $this->errorResponse("No se encontró la URL especificada",405);
+        }
+        if($exception instanceof HttpException) {
+            return $this->errorResponse($exception->getMessage(),$exception->getStatusCode());
+        }
+        if($exception instanceof QueryException) {
+            $codigo = $exception->errorInfo[1];
+            if($codigo == 1451)
+            {
+                //No especificamos con cual está relacionado ya que no se debe brindar información de la base de datos, el que utiliza nuestra API debería conocer el modelo y que eliminar primero.
+                return $this->errorResponse("No se puede eliminar de forma permanente el recurso porque está relacionado con algún otro",409);               
+            }
+        }
+        if(config('app.debug'))
+        {
+            return parent::render($request, $exception);
+        }
+        return $this->errorResponse('Falla inesperada. Intente luego',500);            
     }
-
     /**
      * Convert an authentication exception into an unauthenticated response.
      *
@@ -56,10 +98,11 @@ class Handler extends ExceptionHandler
      */
     protected function unauthenticated($request, AuthenticationException $exception)
     {
-        if ($request->expectsJson()) {
-            return response()->json(['error' => 'Unauthenticated.'], 401);
-        }
-
-        return redirect()->guest(route('login'));
+            return $this->errorResponse("No autenticado", 401);
+    }
+    protected function convertValidationExceptionToResponse(ValidationException $e, $request)
+    {
+        $errors = $e->validator->errors()->getMessages();
+        return $this->errorResponse($errors,422);
     }
 }

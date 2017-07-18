@@ -29,8 +29,8 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->define(Container::class, function (Faker\Generator $faker) {
 
     return [
-        'code' => $faker->name,
-        'green' => $faker->randomElement([Container::CONTENEDOR_RECICLABE,Container::CONTENEDOR_NO_RECICLABLE]),
+        'code' => $faker->numberBetween(1,100000),
+        'green' => $faker->randomElement([Container::CONTENEDOR_RECICLABLE,Container::CONTENEDOR_NO_RECICLABLE]),
         'mac' => str_random(10),
     ];
 });

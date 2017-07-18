@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Container;
 
 use App\Container;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 
-class ContainerController extends Controller
+class ContainerController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,9 @@ class ContainerController extends Controller
      */
     public function index()
     {
-        //
+        $containers = Container::all();
+
+        return $this->showAll($containers);
     }
 
     /**

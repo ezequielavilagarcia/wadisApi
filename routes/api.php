@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 /*Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });*/
-Route::resource('containers','Container\ContainerController');
-Route::resource('fullness','ContainerState\FullnessController',['only' => ['store']]);
+Route::resource('containers','Container\ContainerController',['except' => ['create','edit']]);
+Route::resource('fullnesses','ContainerState\FullnessController',['only' => ['store']]);
+Route::resource('containers.containerstates','Container\ContainerContainerStateController',['only' => ['index']]);
 

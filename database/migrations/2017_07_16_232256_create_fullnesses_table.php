@@ -14,10 +14,10 @@ class CreateFullnessesTable extends Migration
     public function up()
     {
         Schema::create('fullnesses', function (Blueprint $table) {
-            $table->integer('id')->unsigned();
+            $table->integer('container_state_id')->unsigned();
             $table->integer('value');
             
-            $table->foreign('id')->references('id')->on('container_states');
+            $table->foreign('container_state_id')->references('id')->on('container_states');
         });
     }
 

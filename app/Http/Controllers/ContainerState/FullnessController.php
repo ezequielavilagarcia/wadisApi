@@ -2,31 +2,14 @@
 
 namespace App\Http\Controllers\ContainerState;
 
+use App\Container;
+use App\ContainerState;
 use App\Fullness;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 
-class FullnessController extends Controller
+class FullnessController extends ApiController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -36,7 +19,29 @@ class FullnessController extends Controller
      */
     public function store(Request $request)
     {
-        
+        // Defino reglas de validacion
+        $rules = [
+            'mac' => 'required',
+            'value' => 'required | integer',
+        ];
+        //Aplico las reglas al request
+        $this->validate($request, $rules);
+
+        $container = Container::where('mac', $request->mac)->firstOrFail();
+
+        $containerState = new ContainerState();
+
+        $containerState->state_type = ContainerState::ESTADO_LLENADO;
+        $containerState->container_id = $container->id;
+        $containerState->save();
+
+        $fullness = new Fullness();
+        $fullness->container_state_id = $containerState->id;
+        $fullness->value = $request->value;
+        $fullness->save();
+
+        return $this->showOne($fullness,201);
+
     }
 
     /**
