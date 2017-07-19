@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Fullness extends Model
 {
+
     public $timestamps = false;
     public $primaryKey  = "container_state_id";
 
