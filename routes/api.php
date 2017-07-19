@@ -18,5 +18,6 @@ use Illuminate\Http\Request;
 });*/
 Route::resource('containers','Container\ContainerController',['except' => ['create','edit']]);
 Route::resource('fullnesses','ContainerState\FullnessController',['only' => ['store']]);
+Route::resource('locations','ContainerState\LocationController',['only' => ['store']]);
 Route::resource('containers.containerstates','Container\ContainerContainerStateController',['only' => ['index']]);
 

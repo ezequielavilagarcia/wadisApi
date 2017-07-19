@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Fullness;
+use App\Location;
 use App\Container;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,8 +23,15 @@ class ContainerState extends Model
     	return $this->belongsTo(Container::class);
     }
 
-    public function fullness()
+    public function states()
     {
-        return $this->hasOne(Fullness::class);
+        if($this->state_type == 1)
+        {
+            return $this->hasOne(Fullness::class);
+        }        
+        if($this->state_type == 2)
+        {
+            return $this->hasOne(Location::class);
+        }
     }
 }

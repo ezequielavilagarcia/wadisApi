@@ -14,8 +14,10 @@ class CreateLocationsTable extends Migration
     public function up()
     {
         Schema::create('locations', function (Blueprint $table) {
-            $table->increments('container_states_id');
-            $table->timestamps();
+            $table->integer('container_state_id')->unsigned()->unique()->primary();
+            $table->string('geo_x');
+            $table->string('geo_y');
+            $table->foreign('container_state_id')->references('id')->on('container_states');
         });
     }
 

@@ -16,11 +16,12 @@ class ContainerContainerStateController extends ApiController
      */
     public function index(Container $container)
     {
-        $containerStates = $container->containerStates()
-        ->whereHas('fullness')
-        ->with('fullness')
-        ->get();
+        $containerState = $container->containerStates;
 
-        return $this->showAll($containerStates);
+        foreach ($containerState as $state) {  
+            $state->states;
+        }
+
+        return $this->showAll($containerState);
     }
 }
