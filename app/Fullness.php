@@ -7,20 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Fullness extends Model
 {
-	public $timestamps = false;
-	public $id = false;
+    public $timestamps = false;
+    public $primaryKey  = "container_state_id";
 
     protected $fillable = [
-    	'value',
-    	'container_state_id',
+        'value',
     ];
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
     protected $hidden = [
-    	'id',
+        'container_state_id',
     ];
-
-
     public function ContainerState()
     {
-        return $this->hasOne(ContainerState::class);
+        return $this->belongsTo(ContainerState::class);
     }
 }
