@@ -1,5 +1,6 @@
 <?php
 
+use App\AlertType;
 use App\Container;
 
 /*
@@ -34,3 +35,13 @@ $factory->define(Container::class, function (Faker\Generator $faker) {
         'mac' => str_random(10),
     ];
 });
+/*
+$factory->define(AlertType::class, function (Faker\Generator $faker) {
+
+    return [
+        'name' => $faker->numberBetween(1,100000),
+        'green' => $faker->randomElement([Container::CONTENEDOR_RECICLABLE,Container::CONTENEDOR_NO_RECICLABLE]),
+        'mac' => str_random(10),
+    ];
+});
+*/

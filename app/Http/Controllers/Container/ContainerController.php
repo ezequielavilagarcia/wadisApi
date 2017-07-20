@@ -17,7 +17,7 @@ class ContainerController extends ApiController
     {
         $containers = Container::All();
         foreach ($containers as $container) {
-           $container->latestContainerStates->states;//()->max('created_at');
+           $container->latestContainerStates->states;
         }
 
         return $this->showAll($containers);

@@ -2,9 +2,10 @@
 
 namespace App;
 
+use App\Alert;
+use App\Container;
 use App\Fullness;
 use App\Location;
-use App\Container;
 use Illuminate\Database\Eloquent\Model;
 
 class ContainerState extends Model
@@ -17,6 +18,8 @@ class ContainerState extends Model
     	'state_type',
     	'container_id',
     ];
+
+    
 
     public function container()
     {
@@ -32,6 +35,10 @@ class ContainerState extends Model
         if($this->state_type == 2)
         {
             return $this->hasOne(Location::class);
+        }        
+        if($this->state_type == 3)
+        {
+            return $this->hasOne(Alert::class);
         }
     }
 }

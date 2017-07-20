@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\ContainerState;
 
 use App\Alert;
+use App\Container;
+use App\ContainerState;
+use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class AlertController extends Controller
+class AlertController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -36,7 +38,28 @@ class AlertController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Defino reglas de validacion
+        $rules = [
+            'mac' => 'required',
+            'alert_type' => 'required',
+        ];
+        //Aplico las reglas al request
+        $this->validate($request, $rules);
+
+        $container = Container::where('mac', $request->mac)->firstOrFail();
+
+        $containerState = new ContainerState();
+
+        $containerState->state_type = ContainerState::ESTADO_ALERTA;
+        $containerState->container_id = $container->id;
+        $containerState->save();
+
+        $state = new Alert();
+        $state->container_state_id = $containerState->id;
+        $state->alert_type_id = $request->alert_type;
+        $state->save();
+
+        return $this->showOne($state,201);
     }
 
     /**

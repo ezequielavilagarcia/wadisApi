@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAlertsTable extends Migration
+class AddForeignKeyToAlert extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateAlertsTable extends Migration
      */
     public function up()
     {
-        Schema::create('alerts', function (Blueprint $table) {
-            $table->integer('container_state_id')->unsigned()->unique()->primary();
+        Schema::table('alerts', function (Blueprint $table) {
 
-            /* FOREIGN KEYS */
-            $table->foreign('container_state_id')->references('id')->on('container_states');
+            $table->integer('alert_type_id')->unsigned();
+            $table->foreign('alert_type_id')->references('id')->on('alert_types');
+
         });
     }
 
