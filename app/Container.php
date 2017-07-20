@@ -24,4 +24,9 @@ class Container extends Model
     {
     	return $this->hasMany(ContainerState::class);
     }
+
+    public function latestContainerStates()
+{
+    return $this->hasOne(ContainerState::class)->latest();
+}
 }
