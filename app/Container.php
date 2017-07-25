@@ -20,9 +20,6 @@ class Container extends Model
         'status',
     ];    
 
-    protected $hidden = [
-    	'id'
-    ];
 
     public function containerStates()
     {
