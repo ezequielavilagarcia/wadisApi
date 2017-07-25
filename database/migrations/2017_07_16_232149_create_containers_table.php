@@ -15,9 +15,9 @@ class CreateContainersTable extends Migration
     {
         Schema::create('containers', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code');
-            $table->integer('green');
-            $table->string('mac');
+            $table->string('code')->nullable();
+            $table->integer('green')->nullable();
+            $table->macAddress('mac')->unique();
             $table->timestamps();
         });
     }

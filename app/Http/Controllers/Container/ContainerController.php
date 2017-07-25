@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Container;
 
+use App\Alert;
 use App\Container;
-use Illuminate\Http\Request;
+use App\ContainerState;
 use App\Http\Controllers\ApiController;
+use Illuminate\Http\Request;
 
 class ContainerController extends ApiController
 {
@@ -24,16 +26,6 @@ class ContainerController extends ApiController
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -41,7 +33,30 @@ class ContainerController extends ApiController
      */
     public function store(Request $request)
     {
-        
+        $rules =[ 
+                    'mac' => "required | regex:^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$^",
+                ];
+        $this->validate($request, $rules);
+
+        $container = Container::where('mac', $request->mac)->first();
+        if(isset($container->id)){
+            return $this->errorResponse("Mac ya registrada para otro contenedor",422);
+        }
+        $container = new Container();
+        $container->mac = $request->mac;
+        $container->save();
+
+        $containerState = new ContainerState();
+        $containerState->state_type = ContainerState::ESTADO_ALERTA;
+        $containerState->container_id = $container->id;
+        $containerState->save();
+        $alert = new Alert();
+        $alert->container_state_id = $containerState->id;
+        $alert->alert_type_id = 1; //1 Indica Nuevo
+        $alert->save();
+
+        return $this->showOne($container,201);
+
     }
 
     /**

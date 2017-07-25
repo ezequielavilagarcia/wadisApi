@@ -32,7 +32,7 @@ $factory->define(Container::class, function (Faker\Generator $faker) {
     return [
         'code' => $faker->numberBetween(1,100000),
         'green' => $faker->randomElement([Container::CONTENEDOR_RECICLABLE,Container::CONTENEDOR_NO_RECICLABLE]),
-        'mac' => str_random(10),
+        'mac' => "00:0a:95:9d:" .$faker->numberBetween(1,99) . ":" .$faker->numberBetween(1,99),
     ];
 });
 /*

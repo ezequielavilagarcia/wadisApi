@@ -13,11 +13,15 @@ class Container extends Model
 	const CONTENEDOR_DISPONIBLE = "1";
 	const CONTENEDOR_NO_DISPONIBLE = "0";
     protected $fillable = [
-    	'code',
-    	'green',
-    	'mac',
-    	'zone_id',
-    	'status',
+        'code',
+        'green',
+        'mac',
+        'zone_id',
+        'status',
+    ];    
+
+    protected $hidden = [
+    	'id'
     ];
 
     public function containerStates()

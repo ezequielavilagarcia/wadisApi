@@ -10,6 +10,10 @@ class AlertType extends Model
     public $timestamps = false;
     protected $fillable = [
     	'name',
+    ];    
+
+    protected $hidden = [
+    	'id',
     ];
 
 

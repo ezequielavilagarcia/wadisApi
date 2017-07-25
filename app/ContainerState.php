@@ -15,7 +15,11 @@ class ContainerState extends Model
 	const ESTADO_ALERTA = 3;
 
     protected $fillable = [
-    	'state_type',
+        'state_type',
+        'container_id',
+    ];
+    protected $hidden = [
+    	'id',
     	'container_id',
     ];
 
