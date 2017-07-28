@@ -27,3 +27,13 @@ Route::resource('containers.containerstates','Container\ContainerContainerStateC
 Route::resource('zones','Zone\ZoneController',['except' => ['create','edit']]);
 Route::resource('zones.containers','Zone\ZoneContainerController',['only' => ['index']]);
 
+
+Route::resource('tasktypes','TaskType\TaskTypeController',['only' => ['index','store']]);
+
+Route::resource('userprofiles','UserProfile\UserProfileController', ['except' => ['create','edit']]);
+Route::resource('userprofiles.tasks','UserProfile\UserProfileTaskController',['except' => ['create','edit']]);
+Route::resource('alerttypes','AlertType\AlertTypeController',['only' => ['show']]);
+
+
+Route::resource('tasks','Task\TaskController',['only' => ['index','store']]);
+

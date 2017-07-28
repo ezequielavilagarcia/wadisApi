@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Container;
+namespace App\Http\Controllers\Plan;
 
-use App\Container;
+use App\Plan;
 use Illuminate\Http\Request;
-use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Controller;
 
-class ContainerZoneController extends ApiController
+class PlanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,6 +18,15 @@ class ContainerZoneController extends ApiController
         //
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -25,40 +34,41 @@ class ContainerZoneController extends ApiController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Container $container, Request $request)
+    public function store(Request $request)
     {
-        $rules = [
-            'zone_id' => 'required'
-        ];
-        
-        $this->validate($request,$rules);
-
-        $container->zone_id = $request->zone_id;
-        $container->save();
-
-        return $this->showOne($container, 201);
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Container  $container
+     * @param  \App\Plan  $plan
      * @return \Illuminate\Http\Response
      */
-    public function show(Container $container)
+    public function show(Plan $plan)
     {
         //
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Plan  $plan
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Plan $plan)
+    {
+        //
+    }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Container  $container
+     * @param  \App\Plan  $plan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Container $container)
+    public function update(Request $request, Plan $plan)
     {
         //
     }
@@ -66,10 +76,10 @@ class ContainerZoneController extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Container  $container
+     * @param  \App\Plan  $plan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Container $container)
+    public function destroy(Plan $plan)
     {
         //
     }

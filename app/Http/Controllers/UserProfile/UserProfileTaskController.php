@@ -1,31 +1,26 @@
 <?php
 
-namespace App\Http\Controllers\AlertType;
+namespace App\Http\Controllers\UserProfile;
 
-use App\AlertType;
+use App\UserProfile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
 
-class AlertTypeController extends ApiController
+class UserProfileTaskController extends ApiController
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(UserProfile $userProfile)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+         /*       print_r($userProfile);
+        $tasks = $userProfile->tasks;
+        echo $userProfile->id;
+        dd($userProfile->id);*/
+        return $this->showOne($userProfile);
+        //return $this->showAll($tasks);
     }
 
     /**
@@ -42,21 +37,21 @@ class AlertTypeController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\AlertType  $alertType
+     * @param  \App\UserProfile  $userProfile
      * @return \Illuminate\Http\Response
      */
-    public function show(AlertType $alertType)
+    public function show(UserProfile $userProfile)
     {
-        return $this->showOne($alertType);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\AlertType  $alertType
+     * @param  \App\UserProfile  $userProfile
      * @return \Illuminate\Http\Response
      */
-    public function edit(AlertType $alertType)
+    public function edit(UserProfile $userProfile)
     {
         //
     }
@@ -65,10 +60,10 @@ class AlertTypeController extends ApiController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\AlertType  $alertType
+     * @param  \App\UserProfile  $userProfile
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AlertType $alertType)
+    public function update(Request $request, UserProfile $userProfile)
     {
         //
     }
@@ -76,10 +71,10 @@ class AlertTypeController extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\AlertType  $alertType
+     * @param  \App\UserProfile  $userProfile
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AlertType $alertType)
+    public function destroy(UserProfile $userProfile)
     {
         //
     }

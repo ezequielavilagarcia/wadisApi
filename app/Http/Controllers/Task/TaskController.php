@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\AlertType;
+namespace App\Http\Controllers\Task;
 
-use App\AlertType;
+use App\Task;
+use App\TaskType;
+use App\UserProfile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
 
-class AlertTypeController extends ApiController
+class TaskController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +17,9 @@ class AlertTypeController extends ApiController
      */
     public function index()
     {
-        //
+        $tasks = Task::All();
+
+        return $this->showAll($tasks);
     }
 
     /**
@@ -36,27 +40,43 @@ class AlertTypeController extends ApiController
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+        'task_type_id' => 'required',
+        'user_profile_id' => 'required'
+        ];
+
+
+        $this->validate($request,$rules);   
+        $taskType = TaskType::where('id',$request->task_type_id)->firstOrFail();
+        $taskType = UserProfile::where('id',$request->user_profile_id)->firstOrFail();
+
+        $task = new Task();
+        $task->task_type_id = $request->task_type_id;
+        $task->user_profile_id = $request->user_profile_id;
+        $task->save();
+
+        return $this->showOne($task,201);
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\AlertType  $alertType
+     * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function show(AlertType $alertType)
+    public function show(Task $task)
     {
-        return $this->showOne($alertType);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\AlertType  $alertType
+     * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function edit(AlertType $alertType)
+    public function edit(Task $task)
     {
         //
     }
@@ -65,10 +85,10 @@ class AlertTypeController extends ApiController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\AlertType  $alertType
+     * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AlertType $alertType)
+    public function update(Request $request, Task $task)
     {
         //
     }
@@ -76,10 +96,10 @@ class AlertTypeController extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\AlertType  $alertType
+     * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AlertType $alertType)
+    public function destroy(Task $task)
     {
         //
     }

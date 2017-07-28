@@ -50,7 +50,8 @@ class ZoneController extends ApiController
      */
     public function show(Zone $zone)
     {
-        //
+        dd($zone);
+        return $this->showOne($zone);
     }
 
     /**

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Container;
+namespace App\Http\Controllers\TaskType;
 
-use App\Container;
+use App\TaskType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
 
-class ContainerZoneController extends ApiController
+class TaskTypeController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,9 @@ class ContainerZoneController extends ApiController
      */
     public function index()
     {
-        //
+        $taskTypes = TaskType::All();
+
+        return $this->showAll($taskTypes);
     }
 
 
@@ -25,40 +27,42 @@ class ContainerZoneController extends ApiController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Container $container, Request $request)
+    public function store(Request $request)
     {
         $rules = [
-            'zone_id' => 'required'
+        "name" => 'required',
+        "description" => 'required'
         ];
-        
+
         $this->validate($request,$rules);
 
-        $container->zone_id = $request->zone_id;
-        $container->save();
+        $taskType = new TaskType();
+        $taskType->name = $request->name;
+        $taskType->description = $request->description;
+        $taskType->save();
 
-        return $this->showOne($container, 201);
+        return $this->showOne($taskType, 201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Container  $container
+     * @param  \App\TaskType  $taskType
      * @return \Illuminate\Http\Response
      */
-    public function show(Container $container)
+    public function show(TaskType $taskType)
     {
         //
     }
-
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Container  $container
+     * @param  \App\TaskType  $taskType
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Container $container)
+    public function update(Request $request, TaskType $taskType)
     {
         //
     }
@@ -66,10 +70,10 @@ class ContainerZoneController extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Container  $container
+     * @param  \App\TaskType  $taskType
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Container $container)
+    public function destroy(TaskType $taskType)
     {
         //
     }

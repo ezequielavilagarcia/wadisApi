@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Container;
+namespace App\Http\Controllers\UserProfile;
 
-use App\Container;
+use App\UserProfile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
 
-class ContainerZoneController extends ApiController
+class UserProfileController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,9 @@ class ContainerZoneController extends ApiController
      */
     public function index()
     {
-        //
+        $userProfiles = UserProfile::All();
+
+        return $this->showAll($userProfiles);
     }
 
 
@@ -25,40 +27,40 @@ class ContainerZoneController extends ApiController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Container $container, Request $request)
+    public function store(Request $request)
     {
         $rules = [
-            'zone_id' => 'required'
+        'name' => 'required'
         ];
-        
-        $this->validate($request,$rules);
 
-        $container->zone_id = $request->zone_id;
-        $container->save();
+        $userProfile = new UserProfile();
+        $userProfile->name = $request->name;
+        $userProfile->save();
 
-        return $this->showOne($container, 201);
+        return $this->showOne($userProfile, 201);
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Container  $container
+     * @param  \App\UserProfile  $userProfile
      * @return \Illuminate\Http\Response
      */
-    public function show(Container $container)
+    public function show(UserProfile $userProfile)
     {
-        //
+        dd($userProfile);
+        return $this->showOne($userProfile);
     }
-
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Container  $container
+     * @param  \App\UserProfile  $userProfile
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Container $container)
+    public function update(Request $request, UserProfile $userProfile)
     {
         //
     }
@@ -66,10 +68,10 @@ class ContainerZoneController extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Container  $container
+     * @param  \App\UserProfile  $userProfile
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Container $container)
+    public function destroy(UserProfile $userProfile)
     {
         //
     }

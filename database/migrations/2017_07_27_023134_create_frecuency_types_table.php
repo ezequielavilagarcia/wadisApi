@@ -16,7 +16,6 @@ class CreateFrecuencyTypesTable extends Migration
         Schema::create('frecuency_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->timestamps();
         });
     }
 

@@ -4,6 +4,8 @@ use App\Alert;
 use App\AlertType;
 use App\Container;
 use App\ContainerState;
+use App\FrecuencyType;
+use App\UserProfile;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -34,6 +36,11 @@ class DatabaseSeeder extends Seeder
         'Semanalmente',
         'Mensualmente',
         'Anualmente'
+        ];        
+        $userProfiles = [
+        'Recolector',
+        'Limpieza',
+        'Mantenimiento'
         ];
     	factory(Container::class,$CantidadContainers)->create();
         
@@ -43,7 +50,20 @@ class DatabaseSeeder extends Seeder
             $alertType = new AlertType();
             $alertType->name = $alert;
             $alertType->save();
-            # code...
+        } 
+        /* Creando Frecuency Types*/
+
+        foreach ($frecuencyTypes as $frecuency) {
+            $frecuencyType = new FrecuencyType();
+            $frecuencyType->name = $frecuency;
+            $frecuencyType->save();
+        }  
+        /* Creando User Profiles*/
+
+        foreach ($userProfiles as $profile) {
+            $userProfile = new UserProfile();
+            $userProfile->name = $profile;
+            $userProfile->save();
         }        
         $containers = Container::all();
         foreach ($containers as $container) {
@@ -55,7 +75,6 @@ class DatabaseSeeder extends Seeder
             $alert->container_state_id = $containerState->id;
             $alert->alert_type_id = 1; //1 Indica Nuevo
             $alert->save();
-            # code...
         }
         /***************************************/
         // $this->call(UsersTableSeeder::class);
