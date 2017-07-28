@@ -34,7 +34,7 @@ class ContainerController extends ApiController
     public function store(Request $request)
     {
         $rules =[ 
-                    'mac' => "required | regex:^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$^",
+                    'mac' => "required | regex:^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$^", // Valido que sea una MAC valida
                 ];
         $this->validate($request, $rules);
 

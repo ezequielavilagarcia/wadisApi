@@ -29,6 +29,12 @@ class DatabaseSeeder extends Seeder
         'Fuego',
         'Sin Señal'
         ];
+        $frecuencyTypes = [
+        'Diariamente',
+        'Semanalmente',
+        'Mensualmente',
+        'Anualmente'
+        ];
     	factory(Container::class,$CantidadContainers)->create();
         
         /* Creando Alert Types*/

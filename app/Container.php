@@ -3,6 +3,7 @@
 namespace App;
 
 use App\ContainerState;
+use App\Zone;
 use Illuminate\Database\Eloquent\Model;
 
 class Container extends Model
@@ -18,7 +19,16 @@ class Container extends Model
         'mac',
         'zone_id',
         'status',
-    ];    
+    ];   
+
+   /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = [
+        'zone',
+    ];
 
 
     public function containerStates()
@@ -27,7 +37,12 @@ class Container extends Model
     }
 
     public function latestContainerStates()
-{
-    return $this->hasOne(ContainerState::class)->latest();
-}
+    {
+        return $this->hasOne(ContainerState::class)->latest();
+    }
+
+    public function zone()
+    {
+        return $this->belongsTo(Zone::class);
+    }
 }

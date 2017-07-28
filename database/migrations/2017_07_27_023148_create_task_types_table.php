@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateContainersTable extends Migration
+class CreateTaskTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreateContainersTable extends Migration
      */
     public function up()
     {
-        Schema::create('containers', function (Blueprint $table) {
+        Schema::create('task_types', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code')->nullable();
-            $table->integer('green')->nullable();
-            $table->macAddress('mac')->unique();
-            $table->integer('zone_id')->unsigned()->nullable();
+            $table->string('name');
+            $table->string('description',1000);
             $table->timestamps();
-
-            
         });
     }
 
@@ -32,6 +28,6 @@ class CreateContainersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('containers');
+        Schema::dropIfExists('task_types');
     }
 }
