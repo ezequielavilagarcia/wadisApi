@@ -26,7 +26,8 @@ class AddToContainerZoneForeignKey extends Migration
     public function down()
     {
         Schema::table('containers', function (Blueprint $table) {
-            //
+            $table->dropForeign(['zone_id']);
+
         });
     }
 }

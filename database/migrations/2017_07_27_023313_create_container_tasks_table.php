@@ -15,8 +15,8 @@ class CreateContainerTasksTable extends Migration
     {
         Schema::create('container_tasks', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('status');
-            $table->date('date_done');
+            $table->date('date_done')->nullable();
+            $table->date('date_execution'); //indica la fecha que debe realizarse
             $table->integer('user_id')->unsigned();
             $table->integer('task_id')->unsigned();
             $table->integer('container_id')->unsigned();

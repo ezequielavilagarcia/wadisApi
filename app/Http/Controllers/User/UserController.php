@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\User;
 
 use App\User;
+use App\UserProfile;
+use App\Zone;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 
-class UserController extends Controller
+class UserController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -15,17 +17,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $users = User::All();
+        return $this->showAll($users);
     }
 
     /**
@@ -36,7 +29,38 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'username' => 'required | min:4 | unique:users',
+            'name' => 'required | min:4',
+            'last_name' => 'required | min:4',
+            'email' => 'required | email | unique:users',
+            'password' => 'required | min:4 | confirmed',
+            'identification' => 'required',
+            'root' => 'required | int',
+            'user_profile_id' => 'required | int',
+            'zone_id' => 'int'
+        ];
+
+        $this->validate($request,$rules);
+        if($request->zone_id){
+            $zone = Zone::where('id',$request->zone_id)->firstOrFail();            
+        }
+        $userProfile = UserProfile::where('id',$request->user_profile_id)->firstOrFail();
+
+        $user = new User();
+        $user->username = $request->username;
+        $user->name = $request->name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->identification = $request->identification;
+        $user->root = $request->root;
+        $user->user_profile_id = $request->user_profile_id;
+        $user->zone_id = $request->zone_id;
+        $user->save();
+
+        return $this->showOne($user);
+
     }
 
     /**
@@ -47,18 +71,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
-    {
-        //
+        return $this->showOne($user);
     }
 
     /**
@@ -81,6 +94,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return $this->showOne($user);
     }
 }

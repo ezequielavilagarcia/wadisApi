@@ -29,6 +29,9 @@ class AddForeignKeyToAlert extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('alerts');
+        Schema::table('alerts', function (Blueprint $table) {
+            $table->dropForeign(['alert_type_id']);
+
+        });
     }
 }

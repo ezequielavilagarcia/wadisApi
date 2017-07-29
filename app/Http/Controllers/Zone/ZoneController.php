@@ -73,6 +73,7 @@ class ZoneController extends ApiController
      */
     public function destroy(Zone $zone)
     {
-        //
+        $zone->delete();
+        return $this->showOne($zone);
     }
 }

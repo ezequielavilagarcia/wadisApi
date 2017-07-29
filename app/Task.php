@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\ContainerTask;
 use App\Plan;
 use App\TaskType;
 use Illuminate\Database\Eloquent\Model;
@@ -13,7 +14,10 @@ class Task extends Model
     'user_profile_id'
     ];
 
-
+    protected $hidden = [
+    'task_type_id',
+    'user_profile_id'
+    ];
 
     protected $with = [
     'taskType',
@@ -27,5 +31,8 @@ class Task extends Model
     }
     public function plans(){
         return $this->hasMany(Plan::class);
+    }    
+    public function containerTasks(){
+        return $this->hasMany(ContainerTask::class);
     }
 }

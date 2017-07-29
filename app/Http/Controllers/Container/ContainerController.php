@@ -34,14 +34,15 @@ class ContainerController extends ApiController
     public function store(Request $request)
     {
         $rules =[ 
-                    'mac' => "required | regex:^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$^", // Valido que sea una MAC valida
+                    'mac' => "required | regex:^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$^ | unique:containers", // Valido que sea una MAC valida
                 ];
         $this->validate($request, $rules);
-
+        /* Probar unique
         $container = Container::where('mac', $request->mac)->first();
         if(isset($container->id)){
             return $this->errorResponse("Mac ya registrada para otro contenedor",422);
         }
+        */
         $container = new Container();
         $container->mac = $request->mac;
         $container->save();
@@ -101,6 +102,8 @@ class ContainerController extends ApiController
      */
     public function destroy(Container $container)
     {
-        //
+        $container->delete();
+
+        return $this->showOne($container);
     }
 }

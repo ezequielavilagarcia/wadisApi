@@ -15,7 +15,7 @@ class AddForeignKeysUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->integer('user_profile_id')->unsigned();
-            $table->integer('zone_id')->unsigned();
+            $table->integer('zone_id')->unsigned()->nullable();
 
             $table->foreign('user_profile_id')->references('id')->on('user_profiles');
             $table->foreign('zone_id')->references('id')->on('zones');
@@ -31,7 +31,8 @@ class AddForeignKeysUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropForeign(['user_profile_id']);
+            $table->dropForeign(['zone_id']);
         });
     }
 }

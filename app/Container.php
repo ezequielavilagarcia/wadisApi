@@ -3,11 +3,17 @@
 namespace App;
 
 use App\ContainerState;
+use App\ContainerTask;
 use App\Zone;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Container extends Model
 {
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
+
 	const CONTENEDOR_RECICLABLE = "1";
 	const CONTENEDOR_NO_RECICLABLE = "0";	
 
@@ -44,5 +50,10 @@ class Container extends Model
     public function zone()
     {
         return $this->belongsTo(Zone::class);
+    }
+
+    public function containerTasks()
+    {
+        return $this->hasMany(ContainerTask::class);
     }
 }

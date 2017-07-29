@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Plan;
+namespace App\Http\Controllers\ContainerPlan;
 
-use App\Plan;
+use App\ContainerPlan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class PlanTaskController extends Controller
+class ContainerPlanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,6 +19,16 @@ class PlanTaskController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -26,17 +36,27 @@ class PlanTaskController extends Controller
      */
     public function store(Request $request)
     {
-
-
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Plan  $plan
+     * @param  \App\ContainerPlan  $containerPlan
      * @return \Illuminate\Http\Response
      */
-    public function show(Plan $plan)
+    public function show(ContainerPlan $containerPlan)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\ContainerPlan  $containerPlan
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(ContainerPlan $containerPlan)
     {
         //
     }
@@ -45,10 +65,10 @@ class PlanTaskController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Plan  $plan
+     * @param  \App\ContainerPlan  $containerPlan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Plan $plan)
+    public function update(Request $request, ContainerPlan $containerPlan)
     {
         //
     }
@@ -56,10 +76,10 @@ class PlanTaskController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Plan  $plan
+     * @param  \App\ContainerPlan  $containerPlan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Plan $plan)
+    public function destroy(ContainerPlan $containerPlan)
     {
         //
     }

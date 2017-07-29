@@ -19,6 +19,7 @@ class CreateContainersTable extends Migration
             $table->integer('green')->nullable();
             $table->macAddress('mac')->unique();
             $table->integer('zone_id')->unsigned()->nullable();
+            $table->softDeletes();
             $table->timestamps();
 
             
