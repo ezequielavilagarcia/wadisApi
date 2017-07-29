@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Plan;
 
 use App\Plan;
+use App\Task;
+use App\FrecuencyType;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 
-class PlanController extends Controller
+class PlanController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -15,28 +17,9 @@ class PlanController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $plans = Plan::All();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return $this->showAll($plans);
     }
 
     /**
@@ -47,32 +30,42 @@ class PlanController extends Controller
      */
     public function show(Plan $plan)
     {
-        //
+        return $this->showOne($plan);
     }
-
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Plan  $plan
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Plan $plan)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Plan  $plan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Plan $plan)
+    public function store(Request $request)
     {
-        //
-    }
+        $rules = [
+            'frecuency' => 'required | int',
+            'date_start' => 'required | date',
+            'date_end' => 'required | date',
+            'description' => 'required',
+            'frecuency_type_id' => 'required | int',
+            'task_id' => 'required | int'
+        ];
 
+        $this->validate($request,$rules);
+
+        $frecuencyType = FrecuencyType::where('id',$request->frecuency_type_id)->firstOrFail();
+        $task = Task::where('id',$request->task_id)->firstOrFail();
+
+        $plan = new Plan();
+        $plan->frecuency = $request->frecuency;
+        $plan->date_start = $request->date_start;
+        $plan->date_end = $request->date_end;
+        $plan->description = $request->description;
+        $plan->frecuency_type_id = $request->frecuency_type_id;
+        $plan->task_id = $request->task_id;
+        $plan->save();
+
+        return $this->showOne($plan);
+
+    }
     /**
      * Remove the specified resource from storage.
      *

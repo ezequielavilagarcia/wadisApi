@@ -12,9 +12,6 @@ class FrecuencyType extends Model
     	'name',
     ];    
 
-    protected $hidden = [
-    	'id',
-    ];
 
 
     public function Plans()

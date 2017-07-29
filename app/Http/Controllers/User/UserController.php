@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Zone;
+namespace App\Http\Controllers\User;
 
-use App\Zone;
+use App\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Controller;
 
-class ZoneController extends ApiController
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,17 @@ class ZoneController extends ApiController
      */
     public function index()
     {
-        $zones = Zone::All();
+        //
+    }
 
-        return $this->showAll($zones);
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -28,39 +36,39 @@ class ZoneController extends ApiController
      */
     public function store(Request $request)
     {
-        // Defino reglas de validacion
-        $rules = [
-            'name' => 'required'
-        ];
-        //Aplico las reglas al request
-        $this->validate($request, $rules);
-
-        $zone = new Zone();
-        $zone->name = $request->name;
-        $zone->save();
-
-        return $this->showOne($zone,201);        //
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Zone  $zone
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Zone $zone)
+    public function show(User $user)
     {
-        return $this->showOne($zone);
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(User $user)
+    {
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Zone  $zone
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Zone $zone)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -68,10 +76,10 @@ class ZoneController extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Zone  $zone
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Zone $zone)
+    public function destroy(User $user)
     {
         //
     }

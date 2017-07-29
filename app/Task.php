@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Plan;
 use App\TaskType;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,5 +24,8 @@ class Task extends Model
     }    
     public function userProfile(){
     	return $this->belongsTo(UserProfile::class);
+    }
+    public function plans(){
+        return $this->hasMany(Plan::class);
     }
 }

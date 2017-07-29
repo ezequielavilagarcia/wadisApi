@@ -61,9 +61,9 @@ class DatabaseSeeder extends Seeder
         /* Creando User Profiles*/
 
         foreach ($userProfiles as $profile) {
-            $userProfile = new UserProfile();
+            /*$userProfile = new UserProfile();
             $userProfile->name = $profile;
-            $userProfile->save();
+            $userProfile->save();*/
         }        
         $containers = Container::all();
         foreach ($containers as $container) {

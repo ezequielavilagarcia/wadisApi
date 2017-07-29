@@ -4,9 +4,9 @@ namespace App\Http\Controllers\ContainerState;
 
 use App\ContainerState;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 
-class ContainerStateController extends Controller
+class ContainerStateController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -45,9 +45,9 @@ class ContainerStateController extends Controller
      * @param  \App\ContainerState  $containerState
      * @return \Illuminate\Http\Response
      */
-    public function show(ContainerState $containerState)
+    public function show(ContainerState $cont)
     {
-        //
+        return $this->showOne($cont);
     }
 
     /**

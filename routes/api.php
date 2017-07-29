@@ -30,10 +30,16 @@ Route::resource('zones.containers','Zone\ZoneContainerController',['only' => ['i
 
 Route::resource('tasktypes','TaskType\TaskTypeController',['only' => ['index','store']]);
 
-Route::resource('userprofiles','UserProfile\UserProfileController', ['except' => ['create','edit']]);
-Route::resource('userprofiles.tasks','UserProfile\UserProfileTaskController',['except' => ['create','edit']]);
-Route::resource('alerttypes','AlertType\AlertTypeController',['only' => ['show']]);
-
+Route::resource('userprofiles','UserProfile\UserProfileController', ['only' => ['index','store']]);
+Route::resource('userprofiles.tasks','UserProfile\UserProfileTaskController',[
+	'only' => ['index'],
+	'parameters' => ['userprofiles' =>'user_profile']
+	]
+	
+	);
 
 Route::resource('tasks','Task\TaskController',['only' => ['index','store']]);
 
+Route::resource('frecuencytypes','FrecuencyType\FrecuencyTypeController', ['only' => ['index']]);
+
+Route::resource('plans','Plan\PlanController',['only' => ['index', 'show','store']]);

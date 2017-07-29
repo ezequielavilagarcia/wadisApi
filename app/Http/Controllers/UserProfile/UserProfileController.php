@@ -33,6 +33,8 @@ class UserProfileController extends ApiController
         'name' => 'required'
         ];
 
+        $this->validate($request,$rules);
+
         $userProfile = new UserProfile();
         $userProfile->name = $request->name;
         $userProfile->save();
@@ -47,9 +49,9 @@ class UserProfileController extends ApiController
      * @param  \App\UserProfile  $userProfile
      * @return \Illuminate\Http\Response
      */
-    public function show(UserProfile $userProfile)
+    public function show($id)
     {
-        dd($userProfile);
+        $userProfile = UserProfile::firstOrFail($id)->tasks;
         return $this->showOne($userProfile);
     }
 

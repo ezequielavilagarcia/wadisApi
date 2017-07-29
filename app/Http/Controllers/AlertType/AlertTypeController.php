@@ -47,7 +47,8 @@ class AlertTypeController extends ApiController
      */
     public function show(AlertType $alertType)
     {
-        return $this->showOne($alertType);
+               return $this->showOne($alertType);
+
     }
 
     /**

@@ -13,14 +13,11 @@ class UserProfileTaskController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(UserProfile $userProfile)
+    public function index(userProfile $userProfile)
     {
-         /*       print_r($userProfile);
         $tasks = $userProfile->tasks;
-        echo $userProfile->id;
-        dd($userProfile->id);*/
-        return $this->showOne($userProfile);
-        //return $this->showAll($tasks);
+
+        return $this->showAll($tasks);
     }
 
     /**

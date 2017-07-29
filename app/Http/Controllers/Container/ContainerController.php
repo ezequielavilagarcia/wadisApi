@@ -67,7 +67,7 @@ class ContainerController extends ApiController
      */
     public function show(Container $container)
     {
-        //
+        return $this->showOne($container);
     }
 
     /**
