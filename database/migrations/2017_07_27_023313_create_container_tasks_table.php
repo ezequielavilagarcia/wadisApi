@@ -17,7 +17,7 @@ class CreateContainerTasksTable extends Migration
             $table->increments('id');
             $table->date('date_done')->nullable();
             $table->date('date_execution'); //indica la fecha que debe realizarse
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->integer('task_id')->unsigned();
             $table->integer('container_id')->unsigned();
             $table->timestamps();

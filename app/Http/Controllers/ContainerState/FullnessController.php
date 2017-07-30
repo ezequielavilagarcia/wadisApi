@@ -41,20 +41,35 @@ class FullnessController extends ApiController
         $fullness->container_state_id = $containerState->id;
         $fullness->value = $request->value;
         $fullness->save();
-
+        //verificamos si exuste una tarea creada para el contenedor
+        $containerTask = ContainerTask::           
+                where('date_execution','<=',date('Y-m-d'))
+                ->whereNull('date_done')
+                ->get();
+        //  Si el valor requiere recoleccion y no existe una tarea de recoleccion
         if($request->value >= Fullness::LIMITE_RECOLECTAR)
-        {
-            $user = $container->zone->user;
-            //Deberiamos verificar a futuro si el perfil del usuario puede realizar la tarea
-            if($user){
-
+        {   
+            if($containerTask->count() == 0) 
+            {     
+        
                 $containerTask = new ContainerTask();
                 $containerTask->container_id = $container->id;
                 $containerTask->date_execution = date('Y-m-d');
                 $containerTask->task_id = Task::RECOLECCION;
                 $user = $container->zone->user;
-                $containerTask->user_id = $user->id;
+                if($user){
+                    //Deberiamos verificar a futuro si el perfil del usuario puede realizar la tarea
+                    $containerTask->user_id = $user->id;
+                }
                 $containerTask->save();
+            }  
+        }
+        else{
+            //Si es menor 
+            if($containerTask)
+            {
+                $containerTask[0]->date_done = date('Y-m-d');
+                $containerTask[0]->save();
             }
         }
 
