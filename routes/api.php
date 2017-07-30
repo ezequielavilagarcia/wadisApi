@@ -47,10 +47,15 @@ Route::resource('userprofiles.tasks','UserProfile\UserProfileTaskController',[
 	);
 Route::resource('users','User\UserController',['except' => ['create','edit']]);
 Route::resource('users.containertasks','User\UserContainerTaskController',['only' => ['index']]);
+Route::get('users/{user}/getcontainers','User\UserContainerTaskController@getContainers');
 /* Planes*/
 
 Route::resource('frecuencytypes','FrecuencyType\FrecuencyTypeController', ['only' => ['index']]);
 
 Route::resource('plans','Plan\PlanController',['only' => ['index', 'show','store']]);
+Route::resource('plans.containerplans','Plan\PlanContainerPlanController',['only' => ['index']]);
+
+Route::resource('containers.plans.','Container\ContainerContainerPlanController',['only' => ['store']]);
+Route::resource('containers.containerplans','Container\ContainerContainerPlanController',['only' => ['index']]);
 
 

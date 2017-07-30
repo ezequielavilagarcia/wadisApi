@@ -43,7 +43,7 @@ class PlanController extends ApiController
         $rules = [
             'frecuency' => 'required | int',
             'date_start' => 'required | date',
-            'date_end' => 'required | date',
+            'date_end' => 'date',
             'description' => 'required',
             'frecuency_type_id' => 'required | int',
             'task_id' => 'required | int'

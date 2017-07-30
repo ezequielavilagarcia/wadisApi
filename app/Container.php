@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\ContainerPlan;
 use App\ContainerState;
 use App\ContainerTask;
 use App\Zone;
@@ -55,5 +56,9 @@ class Container extends Model
     public function containerTasks()
     {
         return $this->hasMany(ContainerTask::class);
+    }    
+    public function containerPlans()
+    {
+        return $this->hasMany(ContainerPlan::class);
     }
 }

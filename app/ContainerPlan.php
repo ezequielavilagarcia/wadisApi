@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ContainerPlan extends Model
 {
+    public $timestamps = false;
+
     protected $fillable = [
     	'container_id',
     	'plan_id'

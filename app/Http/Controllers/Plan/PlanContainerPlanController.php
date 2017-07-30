@@ -4,16 +4,28 @@ namespace App\Http\Controllers\Plan;
 
 use App\Plan;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 
-class PlanTaskController extends Controller
+class PlanContainerPlanController extends ApiController
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Plan $plan)
+    {
+        $containers = $plan->containerPlans()->get()->pluck('container');
+
+        return $this->showAll($containers);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
         //
     }
@@ -26,8 +38,7 @@ class PlanTaskController extends Controller
      */
     public function store(Request $request)
     {
-
-
+        //
     }
 
     /**
@@ -37,6 +48,17 @@ class PlanTaskController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Plan $plan)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Plan  $plan
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Plan $plan)
     {
         //
     }

@@ -13,10 +13,22 @@ class UserContainerTaskController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(user $user)
+    public function index(User $user)
     {
         $containerTasks = $user->containerTasks;
         return $this->showAll($containerTasks);        
+    }
+
+    public function getContainers(User $user)
+    {
+        $containerTasks = $user->containerTasks()
+            ->where('date_execution','<=',date('Y-m-d'))
+            ->whereNull('date_done')
+            ->get();
+
+        return $this->showAll($containerTasks);        
+
+
     }
 
 }

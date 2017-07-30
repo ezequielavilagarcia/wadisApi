@@ -4,9 +4,11 @@ namespace App\Http\Controllers\ContainerState;
 
 use App\Container;
 use App\ContainerState;
+use App\ContainerTask;
 use App\Fullness;
-use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
+use App\Task;
+use Illuminate\Http\Request;
 
 class FullnessController extends ApiController
 {
@@ -39,6 +41,22 @@ class FullnessController extends ApiController
         $fullness->container_state_id = $containerState->id;
         $fullness->value = $request->value;
         $fullness->save();
+
+        if($request->value >= Fullness::LIMITE_RECOLECTAR)
+        {
+            $user = $container->zone->user;
+            //Deberiamos verificar a futuro si el perfil del usuario puede realizar la tarea
+            if($user){
+
+                $containerTask = new ContainerTask();
+                $containerTask->container_id = $container->id;
+                $containerTask->date_execution = date('Y-m-d');
+                $containerTask->task_id = Task::RECOLECCION;
+                $user = $container->zone->user;
+                $containerTask->user_id = $user->id;
+                $containerTask->save();
+            }
+        }
 
         return $this->showOne($fullness,201);
 

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\ContainerPlan;
 use App\FrecuencyType;
 use App\Task;
 use Illuminate\Database\Eloquent\Model;
@@ -27,5 +28,8 @@ class Plan extends Model
     }    
     public function task(){
     	return $this->belongsTo(Task::class);
+    }
+    public function containerPlans(){
+        return $this->hasMany(ContainerPlan::class);
     }
 }
