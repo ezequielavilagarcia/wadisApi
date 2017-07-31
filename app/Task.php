@@ -9,10 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
-    const RECOLECCION = '1';
-    const LIMPIEZA = '2';
-    const MANTENIMIENTO = '3';
-    const URGENCIA = '4';
+    const RECOLECCION = 1;
+    //const LIMPIEZA = 2;
+    const VOLCADO = 4;
+    const INCENDIO = 5;
 
     protected $fillable = [
     'task_type_id',

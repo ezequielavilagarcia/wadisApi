@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\ContainerState;
 
 use App\Alert;
+use App\AlertType;
 use App\Container;
 use App\ContainerState;
+use App\ContainerTask;
 use App\Http\Controllers\ApiController;
+use App\Task;
 use Illuminate\Http\Request;
 
 class AlertController extends ApiController
@@ -59,6 +62,46 @@ class AlertController extends ApiController
         $state->alert_type_id = $request->alert_type;
         $state->save();
 
+        switch ($request->alert_type) {
+            case AlertType::INCENDIO:
+                    $task_id = Task::INCENDIO;
+                break;            
+            case AlertType::VOLCADO:
+                    $task_id = Task::VOLCADO;
+                break;
+        }
+
+        //verificamos si exuste una tarea creada para el contenedor del tipo del alerta
+        if(isset($task_id)){         
+            $containerTasks = ContainerTask::           
+                    where(
+                            [
+                                [
+                                    'date_execution','<=',date('Y-m-d')
+                                ],
+                                [
+                                    'task_id','=',$task_id
+                                ],
+                            ]
+                        )
+                    ->whereNull('date_done')
+                    ->get();
+            //  Si no existe una tarea del mismo tipo 
+            if($containerTasks->count() == 0) 
+            {     
+                $containerTask = new ContainerTask();
+                $containerTask->container_id = $container->id;
+                $containerTask->date_execution = date('Y-m-d');
+                $containerTask->task_id = $task_id;
+                $user = $container->zone->user;
+                if($user){
+                    //Deberiamos verificar a futuro si el perfil del usuario puede realizar la tarea
+                    $containerTask->user_id = $user->id;
+                }
+                $containerTask->save();
+            }  
+        }
+        
         return $this->showOne($state,201);
     }
 

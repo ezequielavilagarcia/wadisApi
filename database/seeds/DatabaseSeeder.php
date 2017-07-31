@@ -29,10 +29,18 @@ class DatabaseSeeder extends Seeder
 
         $CantidadContainers = 2;
         $AlertTypes = [
-        'Nuevo',
-        'Caido',
-        'Fuego',
-        'Sin Señal'
+        [
+            'id'=> AlertType::NUEVO, 
+            'name' => 'Nuevo'],
+        [
+            'id'=> AlertType::VOLCADO, 
+            'name' => 'Volcado'],
+        [
+            'id'=> AlertType::INCENDIO, 
+            'name' => 'Incendio'],
+        [
+            'id'=> AlertType::SIN_SENIAL, 
+            'name' => 'Sin Señal']
         ];
         $frecuencyTypes = [
         'Diariamente',
@@ -43,23 +51,50 @@ class DatabaseSeeder extends Seeder
         $userProfiles = [
             [
                 'profile' => 'Recolector',
-                'tasktype' => 'Recolectar',
-                'description' => 'Tarea de recolección de Reciduos'
+                'tasks' => [
+                    [
+                        'task_id' => Task::RECOLECCION,
+                        'tasktype' => 'Recolectar',
+                        'description' => 'Tarea de recolección de Reciduos'
+                    ]
+                ]
+
             ],        
             [
                 'profile' => 'Limpieza',
-                'tasktype' => 'Limpiar',
-                'description' => 'Tarea de limpieza de contenedor'
+                'tasks' => [
+                    [
+                        'tasktype' => 'Limpiar',
+                        'description' => 'Tarea de limpieza de contenedor'
+                    ]
+                ]
+
             ],            
             [
                 'profile' => 'Mantenimiento',
-                'tasktype' => 'Visita de Mantenimiento',
-                'description' => 'Tarea de Mantenimiento general'
-            ],            
+                'tasks' => [
+                    [
+                        'tasktype' => 'Visita de Mantenimiento',
+                        'description' => 'Tarea de Mantenimiento general'
+                    ],
+                    [
+                        'task_id' => Task::VOLCADO,
+                        'tasktype' => 'Levantar contenedor Volcado',
+                        'description' => 'Levantar el contenedor Volcado'
+                    ]
+                ]
+                
+            ],           
             [
                 'profile' => 'Urgencias',
-                'tasktype' => 'Visita de urgencia',
-                'description' => 'Apagar incendios'
+                'tasks' => [
+                    [
+                        'task_id' => Task::INCENDIO,
+                        'tasktype' => 'Apagar Incendio',
+                        'description' => 'Apagar incendios'
+                    ]
+                ]
+
             ]
         ];
         $zone = new Zone();
@@ -72,7 +107,8 @@ class DatabaseSeeder extends Seeder
 
         foreach ($AlertTypes as $alert) {
             $alertType = new AlertType();
-            $alertType->name = $alert;
+            $alertType->id = $alert['id'];
+            $alertType->name = $alert['name'];
             $alertType->save();
         } 
         /* Creando Frecuency Types*/
@@ -87,15 +123,21 @@ class DatabaseSeeder extends Seeder
         foreach ($userProfiles as $profile) {
             $userProfile = new UserProfile();
             $userProfile->name = $profile['profile'];
-            $userProfile->save();            
-            $taskType = new TaskType();
-            $taskType->name = $profile['tasktype'];
-            $taskType->description = $profile['description'];
-            $taskType->save();
-            $task = new Task();
-            $task->user_profile_id = $userProfile->id;
-            $task->task_type_id = $taskType->id;
-            $task->save();
+            $userProfile->save();
+            foreach ($profile['tasks'] as $task) {
+                $taskType = new TaskType();
+                $taskType->name = $task['tasktype'];
+                $taskType->description = $task['description'];
+                $taskType->save();
+
+                $taskDB = new Task();
+                if(isset($task['task_id']))
+                    $taskDB->id = $task['task_id'];
+                $taskDB->user_profile_id = $userProfile->id;
+                $taskDB->task_type_id = $taskType->id;
+                $taskDB->save();
+            }            
+
         }        
         $containers = Container::all();
         foreach ($containers as $container) {
@@ -105,7 +147,7 @@ class DatabaseSeeder extends Seeder
             $containerState->save();
             $alert = new Alert();
             $alert->container_state_id = $containerState->id;
-            $alert->alert_type_id = 1; //1 Indica Nuevo
+            $alert->alert_type_id = AlertType::NUEVO; //1 Indica Nuevo
             $alert->save();
         }
 

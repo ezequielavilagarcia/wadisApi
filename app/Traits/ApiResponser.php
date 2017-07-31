@@ -23,7 +23,7 @@ trait ApiResponser
 	protected function showAll(Collection $collection, $code = 200)
 	{
 		if($collection->isEmpty()){
-			return $this->successResponse(['data' => "No Existen resultados para la consulta realizada"], 200);
+			return $this->successResponse(['data' => "No Existen resultados para la consulta realizada"], 404);
 		}
 
 		$collection = $this->filterData($collection);

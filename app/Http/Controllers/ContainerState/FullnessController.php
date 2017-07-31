@@ -62,14 +62,26 @@ class FullnessController extends ApiController
                     $containerTask->user_id = $user->id;
                 }
                 $containerTask->save();
-            }  
+            }
+            /*else{
+                //Si es mayor limpio todo excepto las de recolección
+                $hoy = date('Y-m-d');
+                foreach ($containerTasks as $containerTask) {
+                    if($containerTask->task_id != Task::RECOLECCION)
+                    {
+                        $containerTask->date_done = $hoy;
+                        $containerTask->save();
+                    }
+                }  
+            }  */
         }
         else{
             //Si es menor 
             if($containerTasks)
             {
+                $hoy = date('Y-m-d');
                 foreach ($containerTasks as $containerTask) {
-                    $containerTask->date_done = date('Y-m-d');
+                    $containerTask->date_done = $hoy;
                     $containerTask->save();
                 }
 
