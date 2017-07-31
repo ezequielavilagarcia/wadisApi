@@ -23,6 +23,19 @@ class Zone extends Model
     }    
     public function user()
     {
-    	return $this->hasOne(User::class);
+        return $this->hasMany(User::class);
+    }    
+    /* ARREGLAR CONSTANTES */
+    public function userRecolector()
+    {
+        return $this->hasOne(User::class)->where('user_profile_id',1)->latest();
+    }    
+    public function userMantenimiento()
+    {
+        return $this->hasOne(User::class)->where('user_profile_id',3)->latest();
+    }    
+    public function userUrgencia()
+    {
+    	return $this->hasOne(User::class)->where('user_profile_id',4)->latest();
     }
 }

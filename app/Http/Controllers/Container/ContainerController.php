@@ -6,6 +6,7 @@ use App\Alert;
 use App\Container;
 use App\ContainerState;
 use App\Http\Controllers\ApiController;
+use App\Zone;
 use Illuminate\Http\Request;
 
 class ContainerController extends ApiController
@@ -72,17 +73,6 @@ class ContainerController extends ApiController
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Container  $container
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Container $container)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -91,7 +81,20 @@ class ContainerController extends ApiController
      */
     public function update(Request $request, Container $container)
     {
-        //
+        if($request->zone_id)
+        {        
+            $zone = Zone::where('id',$request->zone_id)->firstOrFail();
+        }
+        $container->fill($request->intersect([
+            'zone_id'
+            ]));
+        if($container->isClean())
+        {
+            return $this->errorResponse('Debe especificar al menos un valor diferente para actualizar',422);
+        }
+        $container->save();
+
+        return $this->showOne($container);
     }
 
     /**

@@ -71,7 +71,7 @@ class AlertController extends ApiController
                 break;
         }
 
-        //verificamos si exuste una tarea creada para el contenedor del tipo del alerta
+        //verificamos si existe una tarea creada para el contenedor del tipo del alerta
         if(isset($task_id)){         
             $containerTasks = ContainerTask::           
                     where(
@@ -93,9 +93,12 @@ class AlertController extends ApiController
                 $containerTask->container_id = $container->id;
                 $containerTask->date_execution = date('Y-m-d');
                 $containerTask->task_id = $task_id;
-                $user = $container->zone->user;
+                if($task_id == INCENDIO){
+                    $user = $container->zone->userUrgencia;
+                }else{
+                    $user = $container->zone->userMantenimiento;                    
+                }
                 if($user){
-                    //Deberiamos verificar a futuro si el perfil del usuario puede realizar la tarea
                     $containerTask->user_id = $user->id;
                 }
                 $containerTask->save();

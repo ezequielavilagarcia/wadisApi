@@ -56,9 +56,8 @@ class FullnessController extends ApiController
                 $containerTask->container_id = $container->id;
                 $containerTask->date_execution = date('Y-m-d');
                 $containerTask->task_id = Task::RECOLECCION;
-                $user = $container->zone->user;
+                $user = $container->zone->userRecolector;
                 if($user){
-                    //Deberiamos verificar a futuro si el perfil del usuario puede realizar la tarea
                     $containerTask->user_id = $user->id;
                 }
                 $containerTask->save();
