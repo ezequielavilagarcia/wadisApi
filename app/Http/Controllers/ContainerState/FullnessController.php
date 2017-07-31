@@ -42,14 +42,14 @@ class FullnessController extends ApiController
         $fullness->value = $request->value;
         $fullness->save();
         //verificamos si exuste una tarea creada para el contenedor
-        $containerTask = ContainerTask::           
+        $containerTasks = ContainerTask::           
                 where('date_execution','<=',date('Y-m-d'))
                 ->whereNull('date_done')
                 ->get();
         //  Si el valor requiere recoleccion y no existe una tarea de recoleccion
         if($request->value >= Fullness::LIMITE_RECOLECTAR)
         {   
-            if($containerTask->count() == 0) 
+            if($containerTasks->count() == 0) 
             {     
         
                 $containerTask = new ContainerTask();
@@ -66,10 +66,13 @@ class FullnessController extends ApiController
         }
         else{
             //Si es menor 
-            if($containerTask)
+            if($containerTasks)
             {
-                $containerTask[0]->date_done = date('Y-m-d');
-                $containerTask[0]->save();
+                foreach ($containerTasks as $containerTask) {
+                    $containerTask->date_done = date('Y-m-d');
+                    $containerTask->save();
+                }
+
             }
         }
 

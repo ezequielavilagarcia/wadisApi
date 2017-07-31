@@ -26,7 +26,7 @@ class ContainerTask extends Model
     protected $with =[
     	'user',
     	'task',
-    	'container'
+    	'container.latestLocation'
     ];
 
     public function user(){

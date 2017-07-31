@@ -34,7 +34,7 @@ class Container extends Model
      * @var array
      */
     protected $with = [
-        'zone',
+        'zone'
     ];
 
 
@@ -46,6 +46,10 @@ class Container extends Model
     public function latestContainerStates()
     {
         return $this->hasOne(ContainerState::class)->latest();
+    }    
+    public function latestLocation()
+    {
+        return $this->hasOne(ContainerState::class)->where('state_type',ContainerState::ESTADO_LOCACION)->join('locations', 'container_states.id', '=', 'locations.container_state_id')->latest();
     }
 
     public function zone()
