@@ -34,7 +34,8 @@ class Container extends Model
      * @var array
      */
     protected $with = [
-        'zone'
+        'zone',
+        'latestLocation'
     ];
 
 
