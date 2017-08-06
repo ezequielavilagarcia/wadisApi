@@ -17,9 +17,6 @@ class AlertType extends Model
     	'name',
     ];    
 
-    protected $hidden = [
-    	'id',
-    ];
 
 
     public function Alerts()

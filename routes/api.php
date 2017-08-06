@@ -28,6 +28,7 @@ Route::resource('containers.containertasks','Container\ContainerContainerTaskCon
 Route::resource('fullnesses','ContainerState\FullnessController',['only' => ['store']]);
 Route::resource('locations','ContainerState\LocationController',['only' => ['store']]);
 Route::resource('alerts','ContainerState\AlertController',['only' => ['store']]);
+Route::resource('alerttypes','AlertType\AlertTypeController',['only' => ['index','show']]);
 Route::resource('containers.containerstates','Container\ContainerContainerStateController',['only' => ['index']]);
 /* ZONAS */
 Route::resource('zones','Zone\ZoneController',['except' => ['create','edit']]);

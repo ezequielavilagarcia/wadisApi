@@ -15,28 +15,9 @@ class AlertTypeController extends ApiController
      */
     public function index()
     {
-        //
-    }
+        $alertTypes = AlertType::All();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return $this->showALl($alertTypes);
     }
 
     /**
@@ -49,39 +30,5 @@ class AlertTypeController extends ApiController
     {
                return $this->showOne($alertType);
 
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\AlertType  $alertType
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(AlertType $alertType)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\AlertType  $alertType
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, AlertType $alertType)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\AlertType  $alertType
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(AlertType $alertType)
-    {
-        //
     }
 }
