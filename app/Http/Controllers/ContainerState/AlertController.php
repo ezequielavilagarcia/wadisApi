@@ -104,8 +104,7 @@ class AlertController extends ApiController
                 $containerTask->save();
             }  
         }
-        
-        return $this->showOne($state,201);
+        return $this->showOne($containerState,201);
     }
 
     /**
