@@ -30,7 +30,7 @@ trait ApiResponser
 		$collection = $this->sortData($collection);
 		$collection = $this->paginate($collection);
 		//$collection  = $this->transformData($collection,$transformer);
-		$collection = $this->cacheResponse($collection);
+		//$collection = $this->cacheResponse($collection);
 
 		return $this->successResponse($collection, $code);
 	}
@@ -103,9 +103,7 @@ trait ApiResponser
 	{
 		$url = request()->url();
 		$queryParams = request()->query();
-
 		ksort($queryParams);
-
 		$queryString = http_build_query($queryParams);
 
 		$fullUrl = "{$url}?{$queryString}";
