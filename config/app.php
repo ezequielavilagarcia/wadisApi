@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => 'ART',
+    'timezone' => 'America/Argentina/Buenos_Aires',
 
     /*
     |--------------------------------------------------------------------------
