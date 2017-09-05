@@ -93,7 +93,7 @@ class AlertController extends ApiController
                 $containerTask->container_id = $container->id;
                 $containerTask->date_execution = date('Y-m-d');
                 $containerTask->task_id = $task_id;
-                if($task_id == INCENDIO){
+                if($task_id == Task::INCENDIO){
                     $user = $container->zone->userUrgencia;
                 }else{
                     $user = $container->zone->userMantenimiento;                    
