@@ -44,7 +44,7 @@ class AlertController extends ApiController
         // Defino reglas de validacion
         $rules = [
             'mac' => 'required',
-            'alert_type' => 'required',
+            'alert_type' => 'required'
         ];
         //Aplico las reglas al request
         $this->validate($request, $rules);
@@ -61,23 +61,28 @@ class AlertController extends ApiController
         $state->container_state_id = $containerState->id;
         $state->alert_type_id = $request->alert_type;
         $state->save();
-
+        $generarTarea=true;
         switch ($request->alert_type) {
+            case AlertType::INCENDIO_APAGADO:
+                $generarTarea =false;
             case AlertType::INCENDIO:
                     $task_id = Task::INCENDIO;
-                break;            
+                break;    
+            case AlertType::LEVANTADO:  
+                $generarTarea =false;      
             case AlertType::VOLCADO:
                     $task_id = Task::VOLCADO;
                 break;
         }
 
         //verificamos si existe una tarea creada para el contenedor del tipo del alerta
-        if(isset($task_id)){         
+        if(isset($task_id)){    
+            $hoy = date('Y-m-d');     
             $containerTasks = ContainerTask::           
                     where(
                             [
                                 [
-                                    'date_execution','<=',date('Y-m-d')
+                                    'date_execution','<=',$hoy
                                 ],
                                 [
                                     'task_id','=',$task_id
@@ -87,8 +92,8 @@ class AlertController extends ApiController
                     ->whereNull('date_done')
                     ->get();
             //  Si no existe una tarea del mismo tipo 
-            if($containerTasks->count() == 0) 
-            {     
+            if($containerTasks->count() === 0 && $generarTarea){
+                
                 $containerTask = new ContainerTask();
                 $containerTask->container_id = $container->id;
                 $containerTask->date_execution = date('Y-m-d');
@@ -102,6 +107,14 @@ class AlertController extends ApiController
                     $containerTask->user_id = $user->id;
                 }
                 $containerTask->save();
+            }
+            else{
+                if(!$generarTarea){
+                    foreach ($containerTasks as $containerTask) {
+                        $containerTask->date_done = $hoy;
+                        $containerTask->save();
+                    }                    
+                }
             }  
         }
         return $this->showOne($containerState,201);

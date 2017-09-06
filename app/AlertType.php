@@ -11,6 +11,8 @@ class AlertType extends Model
     const VOLCADO = 2;
     const INCENDIO = 3;
     const SIN_SENIAL = 4;
+    const INCENDIO_APAGADO = 5;
+    const LEVANTADO = 6;
     
     public $timestamps = false;
     protected $fillable = [
