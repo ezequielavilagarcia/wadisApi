@@ -32,18 +32,27 @@ class FullnessController extends ApiController
         $container = Container::where('mac', $request->mac)->firstOrFail();
 
         $containerState = new ContainerState();
-
         $containerState->state_type = ContainerState::ESTADO_LLENADO;
         $containerState->container_id = $container->id;
         $containerState->save();
-
         $fullness = new Fullness();
         $fullness->container_state_id = $containerState->id;
         $fullness->value = $request->value;
         $fullness->save();
-        //verificamos si exuste una tarea creada para el contenedor
+
+        $hoy = date('Y-m-d');
+        //verificamos si existe una tarea creada para el contenedor
         $containerTasks = ContainerTask::           
-                where('date_execution','<=',date('Y-m-d'))
+                where(
+                        [
+                            [
+                                'date_execution','<=',$hoy
+                            ],
+                            [
+                                'task_id','=',Task::RECOLECCION
+                            ]
+                        ]
+                    )
                 ->whereNull('date_done')
                 ->get();
         //  Si el valor requiere recoleccion y no existe una tarea de recoleccion
@@ -62,23 +71,11 @@ class FullnessController extends ApiController
                 }
                 $containerTask->save();
             }
-            /*else{
-                //Si es mayor limpio todo excepto las de recolección
-                $hoy = date('Y-m-d');
-                foreach ($containerTasks as $containerTask) {
-                    if($containerTask->task_id != Task::RECOLECCION)
-                    {
-                        $containerTask->date_done = $hoy;
-                        $containerTask->save();
-                    }
-                }  
-            }  */
         }
         else{
             //Si es menor 
             if($containerTasks)
             {
-                $hoy = date('Y-m-d');
                 foreach ($containerTasks as $containerTask) {
                     $containerTask->date_done = $hoy;
                     $containerTask->save();

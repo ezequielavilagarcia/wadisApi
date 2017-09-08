@@ -28,20 +28,34 @@ class DatabaseSeeder extends Seeder
 		Alert::truncate();
 
         $CantidadContainers = 2;
-        $AlertTypes = [
+        $AlertTypes = 
         [
-            'id'=> AlertType::NUEVO, 
-            'name' => 'Nuevo'],
-        [
-            'id'=> AlertType::VOLCADO, 
-            'name' => 'Volcado'],
-        [
-            'id'=> AlertType::INCENDIO, 
-            'name' => 'Incendio'],
-        [
-            'id'=> AlertType::SIN_SENIAL, 
-            'name' => 'Sin Señal']
-        ];
+            [
+                'id'=> AlertType::NUEVO, 
+                'name' => 'Nuevo'
+            ],
+            [
+                'id'=> AlertType::VOLCADO, 
+                'name' => 'Volcado'
+            ],
+            [
+                'id'=> AlertType::INCENDIO, 
+                'name' => 'Incendio'
+            ],
+            [
+                'id'=> AlertType::SIN_SENIAL, 
+                'name' => 'Sin Señal'
+            ],
+            [
+                'id'=> AlertType::INCENDIO_APAGADO, 
+                'name' => 'Incendio'
+            ],
+            [
+                'id'=> AlertType::LEVANTADO, 
+                'name' => 'Sin Señal'
+            ]
+        ]
+        ;
         $frecuencyTypes = [
         'Diariamente',
         'Semanalmente',
