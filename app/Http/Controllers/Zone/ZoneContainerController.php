@@ -16,7 +16,6 @@ class ZoneContainerController extends ApiController
     public function index(Zone $zone)
     {
         $containers = $zone->with("containers")->get();
-
         return $this->showAll($containers);
     }
 

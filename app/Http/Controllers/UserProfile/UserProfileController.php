@@ -54,7 +54,20 @@ class UserProfileController extends ApiController
         $userProfile = UserProfile::firstOrFail($id)->tasks;
         return $this->showOne($userProfile);
     }
-
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\UserProfile  $userProfile
+     * @return \Illuminate\Http\Response
+     */
+    public function cleanTasks(UserProfile $userProfile)
+    {
+        $tasks = $userProfile->tasks;
+        foreach ($tasks as $task ) {
+            $task->delete();
+        }
+        return $this->showAll($tasks);
+    }
     /**
      * Update the specified resource in storage.
      *
