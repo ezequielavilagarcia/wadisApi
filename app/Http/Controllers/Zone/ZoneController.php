@@ -65,6 +65,12 @@ class ZoneController extends ApiController
         //
     }
 
+    public function zonesWithoutPaginate()
+    {
+        $zones = Zone::All();
+
+        return $this->showAll($zones,200,false);        
+    }
     /**
      * Remove the specified resource from storage.
      *

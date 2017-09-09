@@ -20,7 +20,7 @@ trait ApiResponser
 		return response()->json(['error' => $message, 'code' => $code],$code);	
 	}
 
-	protected function showAll(Collection $collection, $code = 200)
+	protected function showAll(Collection $collection, $code = 200,$paginate = true)
 	{
 		if($collection->isEmpty()){
 			return $this->successResponse(['data' => "No Existen resultados para la consulta realizada"], 404);
@@ -28,7 +28,9 @@ trait ApiResponser
 
 		$collection = $this->filterData($collection);
 		$collection = $this->sortData($collection);
-		$collection = $this->paginate($collection);
+		if($paginate){
+			$collection = $this->paginate($collection);
+		}
 		//$collection  = $this->transformData($collection,$transformer);
 		//$collection = $this->cacheResponse($collection);
 

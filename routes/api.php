@@ -34,6 +34,9 @@ Route::resource('alerttypes','AlertType\AlertTypeController',[
 	]);
 Route::resource('containers.containerstates','Container\ContainerContainerStateController',['only' => ['index']]);
 /* ZONAS */
+// Obtengo Rutas sin paginado
+Route::get('zones/all','Zone\ZoneController@zonesWithoutPaginate');
+// Ready
 Route::resource('zones','Zone\ZoneController',['except' => ['create','edit']]);
 Route::resource('zones.containers','Zone\ZoneContainerController',['only' => ['index']]);
 
