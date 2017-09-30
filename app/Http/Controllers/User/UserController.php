@@ -52,7 +52,8 @@ class UserController extends ApiController
         $user->name = $request->name;
         $user->last_name = $request->last_name;
         $user->email = $request->email;
-        $user->password = bcrypt($request->password);
+        //$user->password = bcrypt($request->password);
+        $user->password = $request->password;
         $user->identification = $request->identification;
         $user->root = $request->root;
         $user->user_profile_id = $request->user_profile_id;
