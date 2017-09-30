@@ -14,11 +14,11 @@ class LoginController extends ApiController
             'email' => 'required | email',
             'password' => 'required'
         ];
-        
+
         $this->validate($request,$rules);
         $user = User::
         where('email',$request->email)
-        ->where('password',$passEncrypt)
+        ->where('password',$request->password)
         ->firstOrFail();            
 
         return $this->showOne($user);
