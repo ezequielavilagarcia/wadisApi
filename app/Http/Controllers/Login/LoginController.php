@@ -5,20 +5,21 @@ namespace App\Http\Controllers\Login;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
 
-class LoginController extends Controller
+class LoginController extends ApiController
 {
     public function login(Request $request){
         $rules = [
             'email' => 'required | email',
-            'password' => 'required | min:4'
+            'password' => 'required'
         ];
 
         $this->validate($request,$rules);
-        $user = User::where(
-        		['email',$request->email],
-        		['password',bcrypt($request->password)]
-        	)->firstOrFail();            
+        $user = User::
+        where('email',$request->email)
+        ->where('password',bcrypt($request->password))
+        ->firstOrFail();            
 
         return $this->showOne($user);
     }
