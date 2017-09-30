@@ -10,8 +10,8 @@ class LoginController extends Controller
 {
     public function login(Request $request){
         $rules = [
-            'email' => 'required | email | unique:users',
-            'password' => 'required | min:4 | confirmed'
+            'email' => 'required | email',
+            'password' => 'required | min:4'
         ];
 
         $this->validate($request,$rules);
