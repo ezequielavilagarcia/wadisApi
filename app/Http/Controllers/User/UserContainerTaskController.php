@@ -21,12 +21,20 @@ class UserContainerTaskController extends ApiController
 
     public function getContainers(User $user)
     {
-        $containerTasks = $user->containerTasks()
+        $containers = $user->containerTasks()
             ->where('date_execution','<=',date('Y-m-d'))
             ->whereNull('date_done')
-            ->get()->pluck('container');
-
-        return $this->showAll($containerTasks,200,false);        
+            ->get()
+            ->pluck('container');
+    
+        
+        $collection = collect([
+            [
+                'containers' => $containers
+            ]
+        ]);
+        
+        return $this->showAll($collection,200,false);        
 
 
     }
