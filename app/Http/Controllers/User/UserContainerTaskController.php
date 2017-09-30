@@ -35,8 +35,15 @@ class UserContainerTaskController extends ApiController
         ]);
         
         return $this->showAll($collection,200,false);        
-
-
     }
-
+    public function getTasksToDo(User $user)
+    {
+        $tasksContainers = $user->containerTasks()
+            ->where('date_execution','<=',date('Y-m-d'))
+            ->whereNull('date_done')
+            ->get()
+            ;    
+        
+        return $this->showAll($tasksContainers,200,false);        
+    }
 }

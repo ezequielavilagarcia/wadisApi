@@ -66,6 +66,23 @@ class PlanController extends ApiController
         return $this->showOne($plan);
 
     }
+    
+    public function GetPlanByDate(Request $request){
+        $rules = [
+            'year' => 'required | int',
+            'month' => 'required | min:2'
+        ];
+        
+        $this->validate($request,$rules);
+
+        $plans= Plan::
+            whereMonth('date_start','<=',$request->month)
+            ->whereYear('date_start','=',$request->year)
+            ->whereNull('date_end')
+            ->get();
+
+        return $this->showAll($plans);
+    }
     /**
      * Remove the specified resource from storage.
      *
