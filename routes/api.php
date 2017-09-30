@@ -60,6 +60,7 @@ Route::resource('userprofiles.tasks','UserProfile\UserProfileTaskController',[
 Route::resource('users','User\UserController',['except' => ['create','edit']]);
 Route::resource('users.containertasks','User\UserContainerTaskController',['only' => ['index']]);
 Route::get('users/{user}/getcontainers','User\UserContainerTaskController@getContainers');
+Route::post('login','Login\LoginController@login');
 /* Planes*/
 
 Route::resource('frecuencytypes','FrecuencyType\FrecuencyTypeController', ['only' => ['index']]);

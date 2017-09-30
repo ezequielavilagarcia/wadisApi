@@ -50,6 +50,9 @@ class FullnessController extends ApiController
                             ],
                             [
                                 'task_id','=',Task::RECOLECCION
+                            ],
+                            [
+                                'container_id','=',$container->id
                             ]
                         ]
                     )

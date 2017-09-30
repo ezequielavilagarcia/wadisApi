@@ -87,6 +87,9 @@ class AlertController extends ApiController
                                 [
                                     'task_id','=',$task_id
                                 ],
+                                [
+                                    'container_id','=',$container->id
+                                ],
                             ]
                         )
                     ->whereNull('date_done')
