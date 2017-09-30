@@ -70,7 +70,7 @@ class PlanController extends ApiController
     public function GetPlanByDate(Request $request){
         $rules = [
             'year' => 'required | int',
-            'month' => 'required | min:2'
+            'month' => 'required'
         ];
         
         $this->validate($request,$rules);
