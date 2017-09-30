@@ -24,7 +24,7 @@ class UserContainerTaskController extends ApiController
         $containerTasks = $user->containerTasks()
             ->where('date_execution','<=',date('Y-m-d'))
             ->whereNull('date_done')
-            ->get();
+            ->get()->pluck('container');
 
         return $this->showAll($containerTasks,200,false);        
 
