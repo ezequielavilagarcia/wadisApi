@@ -40,7 +40,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'id'=> AlertType::INCENDIO, 
-                'name' => 'Incendio'
+                'name' => 'Gases Peligrosos'
             ],
             [
                 'id'=> AlertType::SIN_SENIAL, 
@@ -48,11 +48,11 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'id'=> AlertType::INCENDIO_APAGADO, 
-                'name' => 'Incendio'
+                'name' => 'Sin Gases Peligrosos'
             ],
             [
                 'id'=> AlertType::LEVANTADO, 
-                'name' => 'Sin Señal'
+                'name' => 'Levantado'
             ]
         ]
         ;
@@ -69,7 +69,7 @@ class DatabaseSeeder extends Seeder
                     [
                         'task_id' => Task::RECOLECCION,
                         'tasktype' => 'Recolectar',
-                        'description' => 'Tarea de recolección de Reciduos'
+                        'description' => 'Tarea de recolección de Residuos'
                     ]
                 ]
 

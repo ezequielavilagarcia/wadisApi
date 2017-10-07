@@ -75,10 +75,45 @@ class PlanController extends ApiController
         
         $this->validate($request,$rules);
 
-        $plans= Plan::
+/******************* SIN FIN */
+        /* INICIO ESTE AÑO SIN FIN*/
+        $firstPlan= Plan::
             whereMonth('date_start','<=',$request->month)
             ->whereYear('date_start','=',$request->year)
-            ->whereNull('date_end')
+            ->whereNull('date_end');
+        /* INICIO AÑOS ANTERIORES Y SIN FIN*/
+        $secondPlan= Plan::
+            whereYear('date_start','<',$request->year)
+            ->whereNull('date_end');
+/******************* FIN ESTE AÑO */
+        /*INICIO ESTE AÑO CON FIN DE ESTE AÑO*/
+        $thirdPlan= Plan::
+            whereMonth('date_start','<=',$request->month)
+            ->whereYear('date_start','=',$request->year)
+            ->whereMonth('date_end','>=',$request->month)
+            ->whereYear('date_end','=',$request->year);
+        /* INICIO AÑOS ANTERIORES Y FIN ESTE AÑO*/
+        $fourthPlan= Plan::
+            whereYear('date_start','<',$request->year)
+            ->whereMonth('date_end','>=',$request->month)
+            ->whereYear('date_end','=',$request->year);
+/******************* FIN AÑOS PROXIMOS */   
+        /*INICIO ESTE AÑO FIN AÑOS PROXIMOS*/
+        $fivePlan= Plan::
+            whereMonth('date_start','<=',$request->month)
+            ->whereYear('date_start','=',$request->year)
+            ->whereYear('date_end','>',$request->year);
+        /*INICIO AÑOS ANTERIORES FIN AÑOS PROXIMOS*/
+        $sixPlan= Plan::
+            whereYear('date_start','<',$request->year)
+            ->whereYear('date_end','>',$request->year);
+            /* UNION */
+        $plans = $firstPlan
+            ->union($secondPlan)
+            ->union($thirdPlan)
+            ->union($fourthPlan)
+            ->union($fivePlan)
+            ->union($sixPlan)
             ->get();
 
         return $this->showAll($plans);
