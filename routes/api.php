@@ -19,7 +19,7 @@ use Illuminate\Http\Request;
 Route::resource('containers','Container\ContainerController',['except' => ['create','edit']]);
 Route::resource('containers.zones','Container\ContainerZoneController',['only' => ['store']]);
 Route::resource('containertasks','ContainerTask\ContainerTaskController',[
-	'only' => ['store'],
+	'only' => ['store','update'],
 	'parameters' => ['containertasks' => 'container_task']
 	]);
 Route::resource('containers.containertasks','Container\ContainerContainerTaskController',['only' => ['index']]);

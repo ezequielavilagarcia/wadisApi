@@ -44,6 +44,27 @@ class ContainerTaskController extends ApiController
     }
 
     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\ContainerTask  $containerTask
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, ContainerTask $containerTask)
+    {
+        $rules = [
+        'user_id' => 'required',  //indica la fecha que debe realizarse la tarea
+        ];
+
+        $this->validate($request,$rules); 
+        User::where('id',$request->user_id)->firstOrFail();
+
+        $containerTask->user_id = $request->user_id;
+        $containerTask->date_done = date('Y-m-d');
+        $containerTask->save();
+        return $this->showOne($containerTask);
+    }
+    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\ContainerTask  $containerTask
