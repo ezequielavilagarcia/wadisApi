@@ -33,7 +33,7 @@ $factory->define(Container::class, function (Faker\Generator $faker) {
         'code' => $faker->numberBetween(1,100000),
         'green' => $faker->randomElement([Container::CONTENEDOR_RECICLABLE,Container::CONTENEDOR_NO_RECICLABLE]),
         'mac' => "00:0a:95:9d:" .$faker->numberBetween(1,99) . ":" .$faker->numberBetween(1,99),
-        'zone_id' => '1'
+        'zone_id' => '2'
     ];
 });
 /*

@@ -5,8 +5,10 @@ use App\AlertType;
 use App\Container;
 use App\ContainerState;
 use App\FrecuencyType;
+use App\Location;
 use App\Task;
 use App\TaskType;
+use App\User;
 use App\UserProfile;
 use App\Zone;
 use Illuminate\Database\Seeder;
@@ -26,8 +28,9 @@ class DatabaseSeeder extends Seeder
         Container::truncate();
         AlertType::truncate();
 		Alert::truncate();
+        User::truncate();
 
-        $CantidadContainers = 2;
+        $CantidadContainers = 6;
         $AlertTypes = 
         [
             [
@@ -111,10 +114,16 @@ class DatabaseSeeder extends Seeder
 
             ]
         ];
+        
         $zone = new Zone();
         $zone->name = "Sin Zona";
         $zone->save();
-        
+
+        $zone = new Zone();
+        $zone->name = "UNLAM";
+        $zone->save();
+
+
     	factory(Container::class,$CantidadContainers)->create();
         
         /* Creando Alert Types*/
@@ -153,7 +162,90 @@ class DatabaseSeeder extends Seeder
             }            
 
         }        
+
+/* CEANDO USERS */
+        $user = new User();
+        $user->email = "recolector@unlam.com";
+        $user->password = "1234";
+        $user->username = "Recolector";
+
+        $user->name= "Recolector";
+        $user->last_name= "Unlam";
+        $user->identification = "12345678";
+        $user->root = 0;
+        $user->user_profile_id = 1;
+
+        $user->zone_id = 2;
+        $user->save();
+
+        $user = new User();
+        $user->email = "mantenimiento@unlam.com";
+        $user->password = "1234";
+        $user->username = "Mantenimiento";
+        $user->name= "Mantenimiento";
+        $user->last_name= "Unlam";
+        $user->identification = "12345678";
+        $user->root = 0;
+        $user->user_profile_id = 3;
+
+        $user->zone_id = 2;
+        $user->save();
+
+        $user = new User();
+        $user->email = "urgencias@unlam.com";
+        $user->password = "1234";
+        $user->username = "Urgencias";
+                $user->name= "Urgencias";
+        $user->last_name= "Unlam";
+        $user->identification = "12345678";
+        $user->root = 0;
+        $user->user_profile_id = 4;
+
+        $user->zone_id = 2;
+        $user->save();
+
+        $user = new User();
+        $user->email = "limpieza@unlam.com";
+        $user->password = "1234";
+        $user->username = "Limpieza";
+                $user->name= "Limpieza";
+        $user->last_name= "Unlam";
+        $user->identification = "12345678";
+        $user->root = 0;
+        $user->user_profile_id = 2;
+
+        $user->zone_id = 2;
+        $user->save();
+
         $containers = Container::all();
+        $i = 0;
+        $locations = [
+            [
+                'geo_x' => '-34.670405',
+                'geo_y' => '-58.562343'
+            ],
+                        [
+                'geo_x' => '-34.671816',
+                'geo_y' => '-58.563858'
+            ],
+                        [
+                'geo_x' => '-34.671868',
+                'geo_y' => '-58.560945'
+            ],
+                        [
+                'geo_x' => '-34.671992',
+                'geo_y' => '-58.559947'
+            ],
+                        [
+                'geo_x' => '-34.671242',
+                'geo_y' => '-58.560172'
+            ],
+                        [
+                'geo_x' => '-34.670430',
+                'geo_y' => '-58.561299'
+            ]
+
+        ];
         foreach ($containers as $container) {
             $containerState = new ContainerState();
             $containerState->state_type = ContainerState::ESTADO_ALERTA;
@@ -163,6 +255,20 @@ class DatabaseSeeder extends Seeder
             $alert->container_state_id = $containerState->id;
             $alert->alert_type_id = AlertType::NUEVO; //1 Indica Nuevo
             $alert->save();
+
+            $containerState = new ContainerState();
+
+            $containerState->state_type = ContainerState::ESTADO_LOCACION;
+            $containerState->container_id = $container->id;
+            $containerState->save();
+
+            $state = new Location();
+            $state->container_state_id = $containerState->id;
+            $state->geo_x = $locations[$i]["geo_x"];
+            $state->geo_y = $locations[$i]["geo_y"];
+            $state->save();
+            $i++;
+
         }
 
 
