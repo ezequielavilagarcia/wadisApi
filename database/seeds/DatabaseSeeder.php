@@ -5,6 +5,7 @@ use App\AlertType;
 use App\Container;
 use App\ContainerState;
 use App\FrecuencyType;
+use App\Http\Controllers\ContainerState\FullnessController;
 use App\Location;
 use App\Task;
 use App\TaskType;
@@ -276,6 +277,12 @@ class DatabaseSeeder extends Seeder
             $state->address = $locations[$i]["address"];
             $state->save();
             $i++;
+            $request = [
+                "mac" => $container->mac,
+                "value" => 80
+            ];
+            $fullness = new FullnessController();
+            $fullness->store($request);
 
         }
 
