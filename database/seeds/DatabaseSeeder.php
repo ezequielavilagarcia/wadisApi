@@ -222,27 +222,34 @@ class DatabaseSeeder extends Seeder
         $locations = [
             [
                 'geo_x' => '-34.670405',
-                'geo_y' => '-58.562343'
+                'geo_y' => '-58.562343',
+                'address' => 'asd'
             ],
                         [
                 'geo_x' => '-34.671816',
-                'geo_y' => '-58.563858'
+                'geo_y' => '-58.563858',
+                'address' => 'asd'
+
             ],
-                        [
+            [
                 'geo_x' => '-34.671868',
-                'geo_y' => '-58.560945'
+                'geo_y' => '-58.560945',
+                'address' => 'asd'
             ],
                         [
                 'geo_x' => '-34.671992',
-                'geo_y' => '-58.559947'
+                'geo_y' => '-58.559947',
+                'address' => 'asd'
             ],
                         [
                 'geo_x' => '-34.671242',
-                'geo_y' => '-58.560172'
+                'geo_y' => '-58.560172',
+                'address' => 'asd'
             ],
                         [
                 'geo_x' => '-34.670430',
-                'geo_y' => '-58.561299'
+                'geo_y' => '-58.561299',
+                'address' => 'asd'
             ]
 
         ];
@@ -266,6 +273,7 @@ class DatabaseSeeder extends Seeder
             $state->container_state_id = $containerState->id;
             $state->geo_x = $locations[$i]["geo_x"];
             $state->geo_y = $locations[$i]["geo_y"];
+            $state->address = $locations[$i]["address"];
             $state->save();
             $i++;
 

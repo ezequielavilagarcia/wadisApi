@@ -13,6 +13,7 @@ class Location extends Model
     protected $fillable = [
         'geo_x',
         'geo_y',
+        'address'
     ];
     /**
      * The attributes that should be hidden for arrays.
