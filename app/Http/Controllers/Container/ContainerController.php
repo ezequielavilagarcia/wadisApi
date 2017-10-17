@@ -38,14 +38,9 @@ class ContainerController extends ApiController
                     'mac' => "required | regex:^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$^ | unique:containers", // Valido que sea una MAC valida
                 ];
         $this->validate($request, $rules);
-        /* Probar unique
-        $container = Container::where('mac', $request->mac)->first();
-        if(isset($container->id)){
-            return $this->errorResponse("Mac ya registrada para otro contenedor",422);
-        }
-        */
         $container = new Container();
         $container->mac = $request->mac;
+        $container->zone_id = 1; //indica sin zona
         $container->save();
 
         $containerState = new ContainerState();
