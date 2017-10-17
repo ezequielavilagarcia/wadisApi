@@ -13,6 +13,7 @@ use App\User;
 use App\UserProfile;
 use App\Zone;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\Request;
 
 class DatabaseSeeder extends Seeder
 {
@@ -277,10 +278,10 @@ class DatabaseSeeder extends Seeder
             $state->address = $locations[$i]["address"];
             $state->save();
             $i++;
-            $request = [
-                "mac" => $container->mac,
-                "value" => 80
-            ];
+            $request = new Request();
+            $request["mac"] = $container->mac;
+            $request["value"] = 80;
+
             $fullness = new FullnessController();
             $fullness->store($request);
 
