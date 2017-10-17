@@ -46,7 +46,7 @@ class Container extends Model
 
     public function latestContainerStates()
     {
-        return $this->hasOne(ContainerState::class)->latest();
+        return $this->hasOne(ContainerState::class)->latest('id');
     }    
     public function latestLocation()
     {
