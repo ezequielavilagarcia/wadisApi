@@ -225,33 +225,33 @@ class DatabaseSeeder extends Seeder
             [
                 'geo_x' => '-34.670405',
                 'geo_y' => '-58.562343',
-                'address' => 'asd'
+                'address' => 'Florencio Varela 1903-1999, B1754JEC San Justo, Buenos Aires, Argentina'
             ],
                         [
                 'geo_x' => '-34.671816',
                 'geo_y' => '-58.563858',
-                'address' => 'asd'
+                'address' => 'Florencio Varela 2159, B1754JEG San Justo, Buenos Aires, Argentina'
 
             ],
             [
                 'geo_x' => '-34.671868',
                 'geo_y' => '-58.560945',
-                'address' => 'asd'
+                'address' => 'Ombú 2748, B1754BCD San Justo, Buenos Aires, Argentina'
             ],
                         [
                 'geo_x' => '-34.671992',
                 'geo_y' => '-58.559947',
-                'address' => 'asd'
+                'address' => 'Av. Pres. Dr. Arturo Umberto Illia 1924, San Justo, Buenos Aires, Argentina'
             ],
                         [
                 'geo_x' => '-34.671242',
                 'geo_y' => '-58.560172',
-                'address' => 'asd'
+                'address' => 'Zapiola 2725-2749, B1754BFC San Justo, Buenos Aires, Argentina'
             ],
                         [
                 'geo_x' => '-34.670430',
                 'geo_y' => '-58.561299',
-                'address' => 'asd'
+                'address' => 'Zapiola 2661, B1754BFA San Justo, Buenos Aires, Argentina'
             ]
 
         ];
