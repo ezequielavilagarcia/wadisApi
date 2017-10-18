@@ -86,7 +86,7 @@ class ContainerController extends ApiController
 
         $container->zone_id = $request->zone_id;
         $container->green = $request->green;
-        $container->code = $request->cod;
+        $container->code = $request->code;
 
         $container->save();
 
