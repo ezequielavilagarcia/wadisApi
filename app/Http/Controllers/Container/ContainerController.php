@@ -76,17 +76,18 @@ class ContainerController extends ApiController
      */
     public function update(Request $request, Container $container)
     {
-        if($request->zone_id)
-        {        
-            $zone = Zone::where('id',$request->zone_id)->firstOrFail();
-        }
-        $container->fill($request->intersect([
-            'zone_id'
-            ]));
-        if($container->isClean())
-        {
-            return $this->errorResponse('Debe especificar al menos un valor diferente para actualizar',422);
-        }
+        $rules = [
+        'zone_id' => 'required',
+        'green' => 'required',
+        'code' => 'required'
+        ];
+
+        $this->validate($request,$rules); 
+
+        $container->zone_id = $request->zone_id;
+        $container->green = $request->green;
+        $container->code = $request->cod;
+
         $container->save();
 
         return $this->showOne($container);
