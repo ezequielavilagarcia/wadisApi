@@ -18,7 +18,7 @@ class corsMiddleware
         $response =  $next($request);
         $response
                 ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-                ->header('Access-Control-Allow-Origin', 'http://wadis.com.ar');
+                ->header('Access-Control-Allow-Origin', 'http://wadis.com.ar/*');
         return $response;
     }
 }
