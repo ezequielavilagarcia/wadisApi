@@ -5,7 +5,9 @@ use App\AlertType;
 use App\Container;
 use App\ContainerState;
 use App\FrecuencyType;
+use App\Http\Controllers\ContainerState\AlertController;
 use App\Http\Controllers\ContainerState\FullnessController;
+use App\Http\Controllers\ContainerTask\ContainerTaskController;
 use App\Location;
 use App\Task;
 use App\TaskType;
@@ -32,7 +34,7 @@ class DatabaseSeeder extends Seeder
 		Alert::truncate();
         User::truncate();
 
-        $CantidadContainers = 6;
+        $CantidadContainers = 10;
         $AlertTypes = 
         [
             [
@@ -100,7 +102,12 @@ class DatabaseSeeder extends Seeder
                         'task_id' => Task::VOLCADO,
                         'tasktype' => 'Levantar contenedor Volcado',
                         'description' => 'Levantar el contenedor Volcado'
-                    ]
+                    ],
+                    [
+                        'task_id' => 6,
+                        'tasktype' => 'Visita de Mantenimiento',
+                        'description' => 'Reparar rueda delantera derecha'
+                    ],
                 ]
                 
             ],           
@@ -252,9 +259,25 @@ class DatabaseSeeder extends Seeder
                 'geo_x' => '-34.670430',
                 'geo_y' => '-58.561299',
                 'address' => 'Zapiola 2661, B1754BFA San Justo, Buenos Aires, Argentina'
+            ],
+            [
+                'geo_x' => '-34.666491',
+                'geo_y' => '-58.569888'
+            ],
+            [
+                'geo_x' => '-34.666364',
+                'geo_y' => '-58.571109'
+            ],
+            [
+                'geo_x' => '-34.667220',
+                'geo_y' => '-58.570712'
+            ],
+            [
+                'geo_x' => '-34.668526',
+                'geo_y' => '-58.569038'
             ]
-
         ];
+/*CONTAINERS RECOLECTAR */
         foreach ($containers as $container) {
             $containerState = new ContainerState();
             $containerState->state_type = ContainerState::ESTADO_ALERTA;
@@ -275,17 +298,38 @@ class DatabaseSeeder extends Seeder
             $state->container_state_id = $containerState->id;
             $state->geo_x = $locations[$i]["geo_x"];
             $state->geo_y = $locations[$i]["geo_y"];
-            $state->address = $locations[$i]["address"];
+            if(isset($locations[$i]["address"]))
+                $state->address = $locations[$i]["address"];
             $state->save();
-            $i++;
             $request = new Request();
             $request["mac"] = $container->mac;
-            $request["value"] = 80;
-
-            $fullness = new FullnessController();
-            $fullness->store($request);
-
+            if($i <6){
+                $request["value"] = 80;
+                $controller = new FullnessController();
+            }else{
+                if($i < 9){
+                    $request["date_execution"] = date('Y-m-d');
+                    $request["user_id"] = 2; //Usuario de mantenimiento
+                    $request["container_id"] = $container->id;
+                    if($i %2){
+                        $request["task_id"] = 3;
+                    }else{
+                        $request["task_id"] = 5;
+                    }
+                    $controller = new ContainerTaskController();
+                }else{
+                    $request["mac"] = $container->mac;
+                    $request["alert_type"] = 2;
+                    $controller = new AlertController();
+                }
+            }
+            
+            $controller->store($request);
+            
+            $i++;
         }
+/* CONTAINERS REPARAR */
+        factory(Container::class,4)->create();
 
 
         /***************************************/

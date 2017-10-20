@@ -17,7 +17,7 @@ class CreateLocationsTable extends Migration
             $table->integer('container_state_id')->unsigned()->unique()->primary();
             $table->string('geo_x');
             $table->string('geo_y');
-            $table->string('address');
+            $table->string('address')->nullable();
             $table->foreign('container_state_id')->references('id')->on('container_states');
         });
     }
