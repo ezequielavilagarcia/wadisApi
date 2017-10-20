@@ -314,7 +314,7 @@ class DatabaseSeeder extends Seeder
                     if($i %2){
                         $request["task_id"] = 3;
                     }else{
-                        $request["task_id"] = 5;
+                        $request["task_id"] = 6;
                     }
                     $controller = new ContainerTaskController();
                 }else{
@@ -328,9 +328,6 @@ class DatabaseSeeder extends Seeder
             
             $i++;
         }
-/* CONTAINERS REPARAR */
-        factory(Container::class,4)->create();
-
 
         /***************************************/
         // $this->call(UsersTableSeeder::class);
