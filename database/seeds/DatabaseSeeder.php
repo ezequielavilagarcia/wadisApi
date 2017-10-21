@@ -95,17 +95,17 @@ class DatabaseSeeder extends Seeder
                 'profile' => 'Mantenimiento',
                 'tasks' => [
                     [
-                        'tasktype' => 'Visita de Mantenimiento',
+                        'tasktype' => 'Visita de mantenimiento',
                         'description' => 'Tarea de Mantenimiento general'
                     ],
                     [
                         'task_id' => Task::VOLCADO,
-                        'tasktype' => 'Levantar contenedor Volcado',
+                        'tasktype' => 'Levantar contenedor volcado',
                         'description' => 'Levantar el contenedor Volcado'
                     ],
                     [
                         'task_id' => 6,
-                        'tasktype' => 'Visita de Mantenimiento',
+                        'tasktype' => 'Reparar contenedor',
                         'description' => 'Reparar rueda delantera derecha'
                     ],
                 ]
@@ -116,8 +116,8 @@ class DatabaseSeeder extends Seeder
                 'tasks' => [
                     [
                         'task_id' => Task::INCENDIO,
-                        'tasktype' => 'Apagar Incendio',
-                        'description' => 'Apagar incendios'
+                        'tasktype' => 'Presencia de gases peligrosos',
+                        'description' => 'Recolección especializada por presencia de gases peligrosos'
                     ]
                 ]
 
@@ -262,19 +262,23 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'geo_x' => '-34.666491',
-                'geo_y' => '-58.569888'
+                'geo_y' => '-58.569888',
+                'address' => 'Pres. Juan Domingo Perón 1902-2000, B1754AZF San Justo, Buenos Aires, Argentina'
             ],
             [
                 'geo_x' => '-34.666364',
-                'geo_y' => '-58.571109'
+                'geo_y' => '-58.571109',
+                'address' => 'Alberto Lartigau 2176, B1754KAB San Justo, Buenos Aires, Argentina'
             ],
             [
                 'geo_x' => '-34.667220',
-                'geo_y' => '-58.570712'
+                'geo_y' => '-58.570712',
+                'address' => 'Gral. Ocampo 1952-1998, B1754AXF San Justo, Buenos Aires, Argentina'
             ],
             [
                 'geo_x' => '-34.668526',
-                'geo_y' => '-58.569038'
+                'geo_y' => '-58.569038',
+                'address' => 'Gral. Ocampo 2157, B1754AXI San Justo, Buenos Aires, Argentina'
             ]
         ];
 /*CONTAINERS RECOLECTAR */
