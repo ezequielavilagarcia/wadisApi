@@ -53,14 +53,19 @@ class ContainerTaskController extends ApiController
     public function update(Request $request, ContainerTask $containerTask)
     {
         $rules = [
-        'user_id' => 'required',  //indica la fecha que debe realizarse la tarea
+            'user_id' => 'required',
+            'value' => 'required'  //indica la fecha que debe realizarse la tarea
         ];
 
         $this->validate($request,$rules); 
         User::where('id',$request->user_id)->firstOrFail();
 
         $containerTask->user_id = $request->user_id;
-        $containerTask->date_done = date('Y-m-d');
+        if($request->value == "true"){
+            $containerTask->date_done = date('Y-m-d');
+        }else{
+            $containerTask->date_done = null;
+        }
         $containerTask->save();
         return $this->showOne($containerTask);
     }
