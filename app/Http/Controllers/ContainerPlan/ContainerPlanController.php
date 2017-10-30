@@ -81,6 +81,7 @@ class ContainerPlanController extends Controller
      */
     public function destroy(ContainerPlan $containerPlan)
     {
-        //
+        $containerPlan->delete();
+        return $this->showOne($containerPlan);
     }
 }

@@ -45,7 +45,10 @@ Route::resource('tasktypes','TaskType\TaskTypeController',['only' => ['index','s
 Route::resource('tasks','Task\TaskController',['only' => ['index','store']]);
 
 /* Usuario */
-Route::resource('userprofiles','UserProfile\UserProfileController', ['only' => ['index','show','store']]);
+Route::resource('userprofiles','UserProfile\UserProfileController', [
+	'only' => ['index','show','store'],
+	'parameters' => ['userprofiles' =>'user_profile']
+	]);
 Route::delete('userprofiles/{user_profile}/cleanTasks','UserProfile\UserProfileController@cleanTasks',[
 	'parameters' => ['userprofiles' =>'user_profile']
 	]
@@ -69,6 +72,11 @@ Route::resource('frecuencytypes','FrecuencyType\FrecuencyTypeController', ['only
 Route::resource('plans','Plan\PlanController',['only' => ['index', 'show','store']]);
 Route::resource('plans.containerplans','Plan\PlanContainerPlanController',['only' => ['index']]);
 Route::post('planscalendar','Plan\PlanController@GetPlanByDate');
+
+Route::resource('containerplans','ContainerPlan\ContainerContainerPlanController', [
+	'only' => ['delete'],
+	'parameters' => ['containerplans' =>'container_plan']
+	]);
 
 Route::resource('containers.plans.','Container\ContainerContainerPlanController',['only' => ['store']]);
 Route::resource('containers.containerplans','Container\ContainerContainerPlanController',['only' => ['index']]);

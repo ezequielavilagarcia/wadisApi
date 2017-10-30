@@ -332,7 +332,16 @@ class DatabaseSeeder extends Seeder
             
             $i++;
         }
-
+    
+/* GENERO EL PLAN */
+    $plan = new PlanController();
+    $request = new Request();
+    $request["frecuency"] = 7;
+    $request["date_start"] = '2017-10-30';
+    $request["description"] = "Limpieza";
+    $request["frecuency_type_id"] = 1;
+    $request["task_id"] = 2;
+    $plan->store($request);
         /***************************************/
         // $this->call(UsersTableSeeder::class);
     }

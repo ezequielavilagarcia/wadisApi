@@ -49,9 +49,8 @@ class UserProfileController extends ApiController
      * @param  \App\UserProfile  $userProfile
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(UserProfile $userProfile)
     {
-        $userProfile = UserProfile::firstOrFail($id)->tasks;
         return $this->showOne($userProfile);
     }
     /**
