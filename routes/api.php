@@ -45,7 +45,7 @@ Route::resource('tasktypes','TaskType\TaskTypeController',['only' => ['index','s
 Route::resource('tasks','Task\TaskController',['only' => ['index','store']]);
 
 /* Usuario */
-Route::resource('userprofiles','UserProfile\UserProfileController', ['only' => ['index','store']]);
+Route::resource('userprofiles','UserProfile\UserProfileController', ['only' => ['index','show','store']]);
 Route::delete('userprofiles/{user_profile}/cleanTasks','UserProfile\UserProfileController@cleanTasks',[
 	'parameters' => ['userprofiles' =>'user_profile']
 	]

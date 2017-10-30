@@ -64,10 +64,10 @@ class DatabaseSeeder extends Seeder
         ]
         ;
         $frecuencyTypes = [
-        'Diariamente',
-        'Semanalmente',
-        'Mensualmente',
-        'Anualmente'
+        'Dias',
+        'Semanas',
+        'Meses',
+        'Años'
         ];        
         $userProfiles = [
             [
