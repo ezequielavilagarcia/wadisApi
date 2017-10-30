@@ -73,8 +73,7 @@ Route::resource('plans','Plan\PlanController',['only' => ['index', 'show','store
 Route::resource('plans.containerplans','Plan\PlanContainerPlanController',['only' => ['index']]);
 Route::post('planscalendar','Plan\PlanController@GetPlanByDate');
 
-Route::resource('containerplans','ContainerPlan\ContainerContainerPlanController', [
-	'only' => ['delete'],
+Route::delete('containerplans/{container_plan}','ContainerPlan\ContainerPlanController@destroy',[
 	'parameters' => ['containerplans' =>'container_plan']
 	]);
 

@@ -8,7 +8,10 @@ use App\FrecuencyType;
 use App\Http\Controllers\ContainerState\AlertController;
 use App\Http\Controllers\ContainerState\FullnessController;
 use App\Http\Controllers\ContainerTask\ContainerTaskController;
+use App\Http\Controllers\Container\ContainerContainerPlanController;
+use App\Http\Controllers\Plan\PlanController;
 use App\Location;
+use App\Plan;
 use App\Task;
 use App\TaskType;
 use App\User;
@@ -342,6 +345,19 @@ class DatabaseSeeder extends Seeder
     $request["frecuency_type_id"] = 1;
     $request["task_id"] = 2;
     $plan->store($request);
+
+    $containerPlan = new ContainerContainerPlanController();
+    $request = new Request();
+    $plan = new Plan();
+    $plan->id = 1;
+    $container = new Container();
+    $container->id = 1;
+    $containerPlan->store($container,$plan,$request);    
+    $container->id = 2;
+    $containerPlan->store($container,$plan,$request);    
+    $container->id = 3;
+    $containerPlan->store($container,$plan,$request);
+
         /***************************************/
         // $this->call(UsersTableSeeder::class);
     }

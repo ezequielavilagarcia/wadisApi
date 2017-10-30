@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\ContainerPlan;
 
 use App\ContainerPlan;
-use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
-class ContainerPlanController extends Controller
+class ContainerPlanController extends ApiController
 {
     /**
      * Display a listing of the resource.
