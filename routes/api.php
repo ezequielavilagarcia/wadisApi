@@ -51,9 +51,23 @@ Route::resource('userprofiles','UserProfile\UserProfileController', [
 	]);
 Route::delete('userprofiles/{user_profile}/cleanTasks','UserProfile\UserProfileController@cleanTasks',[
 	'parameters' => ['userprofiles' =>'user_profile']
+	]);
+
+Route::post('userprofiles/{user_profile}/tasktypes/{task_type}','UserProfile\UserProfileTaskController@store',[
+	'parameters' => [
+		'userprofiles' =>'user_profile'
+	],[
+		'tasktypes' => 'task_type'
 	]
-	
-	);
+	]);
+Route::delete('userprofiles/{user_profile}/tasktypes/{task_type}','UserProfile\UserProfileTaskController@destroy',[
+	'parameters' => [
+		'userprofiles' =>'user_profile'
+	],[
+		'tasktypes' => 'task_type'
+	]
+	]);
+
 Route::resource('userprofiles.tasks','UserProfile\UserProfileTaskController',[
 	'only' => ['index'],
 	'parameters' => ['userprofiles' =>'user_profile']
@@ -78,6 +92,7 @@ Route::delete('containerplans/{container_plan}','ContainerPlan\ContainerPlanCont
 	]);
 
 Route::resource('containers.plans.','Container\ContainerContainerPlanController',['only' => ['store']]);
+Route::delete('containers/{container}/plans/{plan}','Container\ContainerContainerPlanController@destroy');
 Route::resource('containers.containerplans','Container\ContainerContainerPlanController',['only' => ['index']]);
 
 

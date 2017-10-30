@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\UserProfile;
 
+use App\Http\Controllers\ApiController;
+use App\Task;
+use App\TaskType;
 use App\UserProfile;
 use Illuminate\Http\Request;
-use App\Http\Controllers\ApiController;
 
 class UserProfileTaskController extends ApiController
 {
@@ -26,11 +28,16 @@ class UserProfileTaskController extends ApiController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
 
+    public function store(userProfile $userProfile, TaskType $taskType, Request $request)
+    {
+        $task = new Task();
+        $task->task_type_id = $taskType->id;
+        $task->user_profile_id = $userProfile->id;
+        $task->save();
+
+        return $this->showOne($task);
+    }
     /**
      * Display the specified resource.
      *
@@ -71,8 +78,11 @@ class UserProfileTaskController extends ApiController
      * @param  \App\UserProfile  $userProfile
      * @return \Illuminate\Http\Response
      */
-    public function destroy(UserProfile $userProfile)
+    public function destroy(UserProfile $userProfile, TaskType $taskType, Request $request)
     {
-        //
+        $task = Task::where('user_profile_id',$userProfile->id)
+                                    ->where("task_type_id",$taskType->id)->firstOrFail();
+        $task->delete();
+        return $this->showOne($task);
     }
 }

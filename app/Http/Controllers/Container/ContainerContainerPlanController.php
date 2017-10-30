@@ -88,8 +88,11 @@ class ContainerContainerPlanController extends ApiController
      * @param  \App\Container  $container
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Container $container)
+    public function destroy(Container $container, Plan $plan, Request $request)
     {
-        //
+        $containerPlan = containerPlan::where('container_id',$container->id)
+                                    ->where("plan_id",$plan->id)->firstOrFail();
+        $containerPlan->delete();
+        return $this->showOne($containerPlan);
     }
 }
