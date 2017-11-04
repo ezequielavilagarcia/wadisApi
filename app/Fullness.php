@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Fullness extends Model
 {
-    const LIMITE_RECOLECTAR = 75;
+    const LIMITE_RECOLECTAR = 40;
     public $timestamps = false;
     public $primaryKey  = "container_state_id";
 
