@@ -22,6 +22,6 @@ class ContainerContainerStateController extends ApiController
             $state->states;
         }
 
-        return $this->showAll($containerState);
+        return $this->showAll($containerState,200,false);
     }
 }
