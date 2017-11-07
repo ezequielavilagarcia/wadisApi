@@ -45,14 +45,13 @@ class PlanController extends ApiController
 
         $this->validate($request,$rules); 
         
-        $plan->fill($request->intersect(['frecuency','date_start','frecuency_type_id','task_id','description']));
-        if(!isset($request->date_end) || $request->date_end == ""){
-            $plan->date_end = null;
-        }
-
-        if(!$plan->isClean()){
-            $plan->save();
-        }
+        $plan->frecuency = $request->frecuency;
+        $plan->date_start = $request->date_start;
+        $plan->date_end = $request->date_end;
+        $plan->description = $request->description;
+        $plan->frecuency_type_id = $request->frecuency_type_id;
+        $plan->task_id = $request->task_id;
+        $plan->save();
 
 
         return $this->showOne($plan);
