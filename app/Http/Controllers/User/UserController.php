@@ -105,6 +105,9 @@ class UserController extends ApiController
         $user->user_profile_id = $request->user_profile_id;
         $user->zone_id = $request->zone_id;
         $user->save();
+
+        return $this->showOne($user);
+
     }
 
     /**
