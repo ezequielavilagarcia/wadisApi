@@ -86,7 +86,14 @@ class UserProfileController extends ApiController
      * @return \Illuminate\Http\Response
      */
     public function destroy(UserProfile $userProfile)
-    {
-        //
+    {   
+        $users = $userProfile->users()->get();
+        if(sizeof($users) == 0 ){
+            $userProfile->delete();
+            return $this->showOne($userProfile);   
+        }else{
+            return $this->errorResponse("El perfil no puede ser eliminado ya que existen usuarios relacionados",409);
+        }
+
     }
 }

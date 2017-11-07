@@ -21,7 +21,7 @@ class CreatePlansTable extends Migration
             $table->string('description',1000);
             $table->integer('frecuency_type_id')->unsigned();
             $table->integer('task_id')->unsigned();
-
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('frecuency_type_id')->references('id')->on('frecuency_types');

@@ -126,6 +126,7 @@ class PlanController extends ApiController
      */
     public function destroy(Plan $plan)
     {
-        //
+        $plan->delete();
+        return $this->showOne($plan);
     }
 }

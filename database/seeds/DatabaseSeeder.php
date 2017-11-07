@@ -180,14 +180,12 @@ class DatabaseSeeder extends Seeder
         $user->email = "recolector@unlam.com";
         $user->password = "1234";
         $user->username = "Recolector";
-
         $user->name= "Recolector";
         $user->last_name= "Unlam";
         $user->identification = "12345678";
         $user->root = 0;
         $user->user_profile_id = 1;
-
-        $user->zone_id = 2;
+        $user->zone_id = 1;
         $user->save();
 
         $user = new User();
@@ -199,35 +197,70 @@ class DatabaseSeeder extends Seeder
         $user->identification = "12345678";
         $user->root = 0;
         $user->user_profile_id = 3;
-
-        $user->zone_id = 2;
+        $user->zone_id = 1;
         $user->save();
 
         $user = new User();
         $user->email = "urgencias@unlam.com";
         $user->password = "1234";
         $user->username = "Urgencias";
-                $user->name= "Urgencias";
+        $user->name= "Urgencias";
         $user->last_name= "Unlam";
         $user->identification = "12345678";
         $user->root = 0;
         $user->user_profile_id = 4;
 
-        $user->zone_id = 2;
+        $user->zone_id = 1;
         $user->save();
 
         $user = new User();
         $user->email = "limpieza@unlam.com";
         $user->password = "1234";
         $user->username = "Limpieza";
-                $user->name= "Limpieza";
+        $user->name= "Limpieza";
         $user->last_name= "Unlam";
         $user->identification = "12345678";
         $user->root = 0;
         $user->user_profile_id = 2;
 
+        $user->zone_id = 1;
+        $user->save();
+
+        $user = new User();
+        $user->email = "admin@unlam.com";
+        $user->password = "1234";
+        $user->username = "Admin";
+        $user->name= "Admin";
+        $user->last_name= "Unlam";
+        $user->identification = "12345678";
+        $user->root = 1;
+        $user->user_profile_id = 1;
+        $user->save();
+
+        $user = new User();
+        $user->email = "recolector2@unlam.com";
+        $user->password = "1234";
+        $user->username = "Recolector";
+        $user->name= "Recolector";
+        $user->last_name= "Unlam";
+        $user->identification = "12345678";
+        $user->root = 0;
+        $user->user_profile_id = 1;
         $user->zone_id = 2;
         $user->save();
+
+        $user = new User();
+        $user->email = "mantenimiento2@unlam.com";
+        $user->password = "1234";
+        $user->username = "Mantenimiento";
+        $user->name= "Mantenimiento";
+        $user->last_name= "Unlam";
+        $user->identification = "12345678";
+        $user->root = 0;
+        $user->user_profile_id = 3;
+        $user->zone_id = 2;
+        $user->save();
+
 
         $containers = Container::all();
         $i = 0;
