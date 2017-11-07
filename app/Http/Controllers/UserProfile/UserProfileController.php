@@ -76,7 +76,16 @@ class UserProfileController extends ApiController
      */
     public function update(Request $request, UserProfile $userProfile)
     {
-        //
+        $userProfile = [
+        'name' => 'required'
+        ];
+
+        $this->validate($request,$rules); 
+        
+        $userProfile->name = $request->name;
+        $userProfile->save();
+
+        return $this->showOne($userProfile);
     }
 
     /**

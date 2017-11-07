@@ -32,6 +32,28 @@ class PlanController extends ApiController
     {
         return $this->showOne($plan);
     }
+
+    public function update(Request $request, Plan $plan)
+    {
+        $rules = [
+            'frecuency' => 'int',
+            'date_start' => 'date',
+            'date_end' => 'date',
+            'frecuency_type_id' => 'int',
+            'task_id' => 'int'
+        ];
+
+        $this->validate($request,$rules); 
+        
+        $plan->fill($request->intersect(['frecuency','date_start','date_end','frecuency_type_id','task_id','description']));
+        
+        if(!$plan->isClean()){
+            $plan->save();
+        }
+
+
+        return $this->showOne($plan);
+    }
     /**
      * Store a newly created resource in storage.
      *

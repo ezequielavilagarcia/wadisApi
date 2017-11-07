@@ -62,7 +62,16 @@ class ZoneController extends ApiController
      */
     public function update(Request $request, Zone $zone)
     {
-        //
+        $rules = [
+        'name' => 'required'
+        ];
+
+        $this->validate($request,$rules); 
+        
+        $zone->name = $request->name;
+        $zone->save();
+
+        return $this->showOne($zone);
     }
 
     public function zonesWithoutPaginate()

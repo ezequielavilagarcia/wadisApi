@@ -84,7 +84,27 @@ class UserController extends ApiController
      */
     public function update(Request $request, User $user)
     {
-        //
+        $rules = [
+            'username' => 'min:4',
+            'name' => 'min:4',
+            'last_name' => 'min:2',
+            'email' => 'email',
+            'root' => 'int',
+            'user_profile_id' => 'int',
+            'zone_id' => 'int'
+        ];
+
+        $this->validate($request,$rules);
+        
+        $user->username = $request->username;
+        $user->name = $request->name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+        $user->identification = $request->identification;
+        $user->root = $request->root;
+        $user->user_profile_id = $request->user_profile_id;
+        $user->zone_id = $request->zone_id;
+        $user->save();
     }
 
     /**
