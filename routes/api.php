@@ -79,6 +79,8 @@ Route::resource('users.containertasks','User\UserContainerTaskController',['only
 Route::get('users/{user}/getcontainers','User\UserContainerTaskController@getContainers');
 Route::get('users/{user}/gettaskstodo','User\UserContainerTaskController@getTasksToDo');
 Route::post('login','Login\LoginController@login');
+Route::post('loginweb','Login\LoginController@loginWeb');
+
 /* Planes*/
 
 Route::resource('frecuencytypes','FrecuencyType\FrecuencyTypeController', ['only' => ['index']]);
