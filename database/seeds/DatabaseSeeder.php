@@ -209,7 +209,6 @@ class DatabaseSeeder extends Seeder
         $user->identification = "12345678";
         $user->root = 0;
         $user->user_profile_id = 4;
-
         $user->zone_id = 1;
         $user->save();
 
@@ -222,7 +221,6 @@ class DatabaseSeeder extends Seeder
         $user->identification = "12345678";
         $user->root = 0;
         $user->user_profile_id = 2;
-
         $user->zone_id = 1;
         $user->save();
 
@@ -234,7 +232,8 @@ class DatabaseSeeder extends Seeder
         $user->last_name= "Unlam";
         $user->identification = "12345678";
         $user->root = 1;
-        $user->user_profile_id = 1;
+        $user->user_profile_id = 2;
+        $user->zone_id = 2;
         $user->save();
 
         $user = new User();
