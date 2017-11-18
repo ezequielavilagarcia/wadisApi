@@ -348,7 +348,7 @@ class DatabaseSeeder extends Seeder
             }else{
                 if($i < 9){
                     $request["date_execution"] = date('Y-m-d');
-                    $request["user_id"] = 2; //Usuario de mantenimiento
+                    $request["user_id"] = 7; //Usuario de mantenimiento
                     $request["container_id"] = $container->id;
                     if($i %2){
                         $request["task_id"] = 3;
